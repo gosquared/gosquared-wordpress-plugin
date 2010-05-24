@@ -71,7 +71,7 @@ function gs_options_page() {
 		<h2>Tracking Code</h2>
 		<form name="gs-options" action="" method = "post">
 			Your site account code: <input type="text" name="gs_acct" value = "<?=$default_text?>" onclick="if(this.value=='<?=$default_text?>')this.value=''" onblur="if(this.value=='')this.value='<?=$default_text?>'"/>
-			<a href="http://www.gosquared.com/support/wiki/account_code/" target="_blank">What's this?</a><br />
+			<a href="http://www.gosquared.com/support/wiki/wordpress_plugin" target="_blank">What's this?</a><br />
 			<input type="submit" value="Save" />
 		</form>
 	</div>

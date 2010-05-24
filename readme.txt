@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: Geoff Wagstaff, GoSquared
+Contributors: GoSquared
 Donate link: http://www.gosquared.com/
 Tags: GoSquared, LiveStats, RealTime-Analytics, Statistics
 Requires at least: 2.1

@@ -1,16 +1,16 @@
 === Plugin Name ===
-Contributors: Geoff Wagstaff
+Contributors: Geoff Wagstaff, GoSquared
 Donate link: http://www.gosquared.com/
 Tags: GoSquared, LiveStats, RealTime-Analytics, Statistics
 Requires at least: 2.1
 Tested up to: 2.9.2
 Stable tag: 0.1
 
-This plugin loads the GoSquared Tracking Code for GoSquared appli
+This plugin loads the GoSquared Tracking Code for GoSquared applications
 
 == Description ==
 
-This plugin loads the GoSquared Tracking Code for LiveStats
+This plugin loads the GoSquared Tracking Code for GoSquared applications
 
 == Installation ==
 

@@ -6,11 +6,11 @@ Requires at least: 2.1
 Tested up to: 2.9.2
 Stable tag: 0.1
 
-This plugin loads the GoSquared Tracking Code for GoSquared applications
+The official GoSquared Worpdress plugin to load the Tracking Code for GoSquared applications
 
 == Description ==
 
-This plugin loads the GoSquared Tracking Code for GoSquared applications
+This plugin has been created by the GoSquared development team to allow site owners to easily integrate their Tracking Code into their Wordpress site. This enables them to use the web applications developed by GoSquared, such as LiveStats, the real-time analytics platform.
 
 == Installation ==
 

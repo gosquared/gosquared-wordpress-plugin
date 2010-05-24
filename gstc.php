@@ -2,7 +2,7 @@
 /*
 Plugin Name: GoSquared LiveStats
 Plugin URI: http://www.gosquared.com/
-Description: The official GoSquared Worpdress plugin to load the Tracking Code for GoSquared applications
+Description: The official GoSquared Wordpress plugin to load the Tracking Code for GoSquared applications
 Version: 0.1
 Author: GoSquared
 Author URI: http://www.gosquared.com/about/

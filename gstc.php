@@ -15,8 +15,8 @@ gs_print_gstc();
 
 function gs_init()
 {
-	$style_url = WP_PLUGIN_URL .'/gosquared/gs.css';
-	$style_file = WP_PLUGIN_DIR .'/gosquared/gs.css';
+	$style_url = WP_PLUGIN_URL .'/gosquared-livestats/gs.css';
+	$style_file = WP_PLUGIN_DIR .'/gosquared-livestats/gs.css';
 	/* Register our stylesheet. */
 	wp_register_style('gs_style', $style_url);
 }
@@ -50,19 +50,19 @@ function gs_options_page() {
 	if(isset($_POST['gs_acct'])){
 		// Handle submission
 		$acct = $_POST['gs_acct'];
-		if(strlen($acct) == 13 && preg_match('/GSN-[0-9]{7}-[A-Z]{1}/', $acct)){
+		if(strlen($acct) == 13 && preg_match('/GSN-[0-9]{6,7}-[A-Z]{1}/', $acct)){
 			update_option('gstc_acct', $acct);
 			echo "<br />";
 			gs_success('Account code updated successfully');
 		}
 		else{
 			echo "<br />";
-			gs_fail('Account code not of valid format. Must be like GSN-0000000-X');
+			gs_fail('Account code not of valid format. Must be like GSN-000000-X');
 		}
 	}
 	
 	$acct = get_option('gstc_acct');
-	if(!$acct) $default_text = 'GSN-0000000-X';
+	if(!$acct) $default_text = 'GSN-000000-X';
 	else $default_text = $acct;
 	?>
 	<div class="wrap">

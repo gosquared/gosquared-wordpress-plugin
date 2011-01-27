@@ -1,21 +1,28 @@
-div#icon-gs{
-	background: url('http://www.gosquared.com/images/G.png') no-repeat;
-	width: 80px;
-	height:61px;
-}
-
 div.gs_success, div.gs_fail{
-	width: 500px;
 	border: solid 1px #CCCCCC;
-	padding: 1px;
+	padding: 10px;
 	margin: 0 auto;
+	border: 1px solid #000000;
+	color: #fff;
+  -webkit-border-radius: 5px; 
+  -moz-border-radius: 5px; 
+  -o-border-radius: 5px; 
+  border-radius: 5px; 
+  -webkit-box-shadow: 0px 1px 0px #ffffff; 
+  -moz-box-shadow: 0px 1px 0px #ffffff; 
+  -o-box-shadow: 0px 1px 0px #ffffff; 
+  box-shadow: 0px 1px 0px #ffffff;
 }
 div.gs_success{
-	background-color: #66FF99;
+	background-color: #78ff4b;
+	border: 1px solid #337711;
+	color: #000;
 }
 
 div.gs_fail{
-	background-color: #FFBFBF;
+	background-color: #ff3c42;
+	border: 1px solid #771122;
+	color: #fff;
 }
 
 div.center{

@@ -73,7 +73,7 @@ function gs_options_page() {
 		}
 		else{
 			echo "<br />";
-			gs_fail('Account code not of valid format. Must be like GSN-000000-X');
+			gs_fail('Site token not of valid format. Must be like GSN-000000-X');
 		}
 	}
 	
@@ -94,7 +94,7 @@ function gs_options_page() {
 		<h2>Tracking Code</h2>
 		<form name="gs-options" action="" method = "post">
 			<table border="0" cellspacing="10" cellpadding="5">
-				<tr><td>Your site account code: </td><td colspan=3><input type="text" name="gs_acct" value = "<?=$default_text?>" onclick="if(this.value=='<?=$default_text?>')this.value=''" onblur="if(this.value=='')this.value='<?=$default_text?>'"/>&nbsp;<a href="http://www.gosquared.com/support/wiki/wordpress_plugin" target="_blank">What's this?</a></td></tr>
+				<tr><td>Your site token: </td><td colspan=3><input type="text" name="gs_acct" value = "<?=$default_text?>" onclick="if(this.value=='<?=$default_text?>')this.value=''" onblur="if(this.value=='')this.value='<?=$default_text?>'"/>&nbsp;<a href="http://www.gosquared.com/support/wiki/wordpress_plugin" target="_blank">What's this?</a></td></tr>
 				<tr><td>Track admin pages: </td><td><input type="radio" name="gs_trackAdmin" value="Yes" id="trackAdmin" <?php if($trackAdmin == 'Yes') echo 'checked="checked" '; ?>/> Yes</td><td><input type="radio" name="gs_trackAdmin" value="No" id="trackAdmin" <?php if($trackAdmin == 'No') echo 'checked="checked" '; ?>/> No</td></tr>
 				<tr><td>Track post preview pages: </td><td><input type="radio" name="gs_trackPreview" value="Yes" id="trackPreview" <?php if($trackPreview == 'Yes') echo 'checked="checked" '; ?>/> Yes</td><td><input type="radio" name="gs_trackPreview" value="No" id="trackPreview" <?php if($trackPreview == 'No') echo 'checked="checked" '; ?>/> No</td></tr>
 				<tr><td>Display users by: </td><td><input type="radio" name="gs_trackUser" value="Off" id="trackUser" <?php if($trackUser == 'Off') echo 'checked="checked" '; ?>/> Off</td><td><input type="radio" name="gs_trackUser" value="UserID" id="trackUser" <?php if($trackUser == 'UserID') echo 'checked="checked" '; ?>/> User ID</td><td><input type="radio" name="gs_trackUser" value="Username" id="trackUser" <?php if($trackUser == 'Username') echo 'checked="checked" '; ?> /> Username</td><td><input type="radio" name="gs_trackUser" value="DisplayName" id="trackUser" <?php if($trackUser == 'DisplayName') echo 'checked="checked" '; ?>/> Display Name</td></tr>

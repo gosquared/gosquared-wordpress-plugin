@@ -1,0 +1,1 @@
+<?php define('API_KEY','FTDB8RU432M84K93'); define('SITE_TOKEN','GSN-345427-C'); define('CACHE_TIMEOUT', 5); ?>

@@ -3,29 +3,29 @@ Contributors: GoSquared
 Donate link: http://www.gosquared.com/
 Tags: GoSquared, LiveStats, Real-Time, Analytics, Statistics, Real, Time
 Requires at least: 2.6
-Tested up to: 3.1
+Tested up to: 3.2.1
 Stable tag: 0.3.0
 
-The official GoSquared for Wordpress plugin to integrate the GoSquared Tracking Code into your Wordpress blog.
+The official GoSquared for Wordpress plugin to integrate the GoSquared Tracking Code and GoSquared widgets into your Wordpress blog.
 
 == Description ==
 
-This plugin allows site owners to easily integrate their GoSquared Tracking Code into their Wordpress site without having to change any source code or theme files.
+This plugin allows site owners to easily integrate their GoSquared Tracking Code and GoSquared widgets into their Wordpress site without having to change any source code or theme files.
 
-This enables you to monitor your Wordpress blog's traffic in real-time with LiveStats and Trends, the real-time analytics platform.
+This enables you to monitor and share your Wordpress blog's traffic in real-time with GoSquared, the real-time analytics platform.
 
-To use LiveStats and Trends on your blog, simply download this plugin and sign up for a free trial account at https://www.gosquared.com/plans/
+To use GoSquared on your blog, simply download this plugin and sign up for a free trial account at https://www.gosquared.com/join/
 
 == Installation ==
 
-1. Sign up to GoSquared for a free trial at https://www.gosquared.com/plans/
+1. Sign up to GoSquared for a free trial at https://www.gosquared.com/join/
 2. Upload the directory called `gosquared-livestats` to `/wp-content/plugins/`
-4. Go to the plugin's admin page (Settings -> LiveStats on the left sidebar) and enter your site token, which can be found in the tracking code tab in GoSquared settings at http://www.gosquared.com/settings/
+4. Go to the plugin's admin page (Settings -> GoSquared on the left sidebar) and enter your site token, which can be found in the tracking code tab in GoSquared Settings at http://www.gosquared.com/settings/
 
 == Frequently Asked Questions ==
 
 = Do I need a GoSquared account for this Plugin to work? =
-You'll need to sign up for GoSquared at https://www.gosquared.com/plans/ to make use of this plugin. If you're already using GoSquared, you'll simply need your Site Token (which can be found on the Tracking Code tab in GoSquared Settings http://www.gosquared.com/settings/) and API Key (which can be found at https://www.gosquared.com/settings/#Personal) to make use of this plugin.
+You'll need to sign up for GoSquared at https://www.gosquared.com/join/ to make use of this plugin. If you're already using GoSquared, you'll simply need your Site Token (which can be found on the Tracking Code tab in GoSquared Settings http://www.gosquared.com/settings/) and API Key (which can be found at https://www.gosquared.com/settings/#Personal) to make use of this plugin.
 
 = Why do I need to enter my API Key? =
 Your API Key is required for the widgets to work.
@@ -34,10 +34,10 @@ Your API Key is required for the widgets to work.
 In your Wordpress Admin interface, go to the "Appearance" tab on the left menu bar, then click on the "Widgets" sub-menu. From here, drag "GoSquared Online Visitors" from the Available Widgets section into the "Main Sidebar" box to the right, or any other widget area your theme uses.
 
 = I don't have a site token. How do I get GoSquared? =
-Check out GoSquared at http://www.gosquared.com/livestats/ and sign up for an account.
+Check out GoSquared at http://www.gosquared.com/features/ and sign up for an account.
 
 = Where can I find my Site Token? =
-Sign in to GoSquared and go to Settings (which is accessible via the switch icon in the top navbar), then click on the "Tracking Code" tab.
+Sign in to GoSquared and go to Settings (which is accessible via the switch icon in the top navbar), then click on the "Tracking Code" tab for your site.
 
 = Where can I find my API Key? =
 Sign in to GoSquared and go to https://www.gosquared.com/settings/#Personal.
@@ -54,7 +54,7 @@ Wing us an email at http://www.gosquared.com/contact/ or check out support docum
 
 == Changelog ==
 
-= 0.3.3 =
+= 0.3.0 =
 * Re-designed admin interface.
 * Added widgets to display currents users on the site.
 

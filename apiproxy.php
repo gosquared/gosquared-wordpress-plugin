@@ -11,17 +11,6 @@ define('CACHE_TIMEOUT', $cache_timeout);
 if (!defined('CACHE_TIMEOUT'))
     define('CACHE_TIMEOUT', 30);
 
-// set acceptable values
-$functions = array('aggregateStats', 'concurrents', 'geo', 'organics',
-                   'pages', 'referrers', 'trends', 'visitors', 'list_sites');
-$formats = array('json', 'xml');
-$limits = array( 'aggregateStats' => 'aggreagateStatsLimit', 
-                 'geo' => 'geoLimit',
-                 'organics' => 'organicsLimit',
-                 'pages' => 'pagesLimit',
-                 'referrers' => 'referrersLimit',
-                 'visitors' => 'visitorsLimit' );
-
 // clean the name of the widget 
 $widget = basename($_GET['widget']);
 
@@ -45,9 +34,9 @@ if ($cachedDataJSON == null) {
 }
 
 function loadCached($widget) {
-    $path_to_cache = './apicache/'.$widget;
-    if (file_exists($path_to_cache))
-        return file_get_contents($path_to_cache);
+    $cache_id = "gs_cache_$widget";
+    $cache = get_option($cache_id);
+    if($cache) return $cache;
     else return null;
 }
 
@@ -66,18 +55,27 @@ function getData($widget) {
 }
 
 function update_cache($widget) {
-    $path_to_config = './widgets/'.$widget.'/config.php';
-    $request = buildRequestUrl($path_to_config);
+    $path_to_config = WP_PLUGIN_DIR.'/gosquared-livestats/widgets/'.$widget.'/config.php';
+    $request = buildRequestUrl($path_to_config, $widget);
     $latestJSON = file_get_contents($request);
     $latest = json_decode($latestJSON, true);
     $latest["cache_time"] = time();
     $latestJSON = json_encode($latest);
-    file_put_contents("./apicache/".$widget, $latestJSON);
+    update_option("gs_cache_$widget", $latestJSON);
     return $latestJSON;
 }
 
-function buildRequestUrl($path_to_config) {
-    global $functions, $formats, $limits, $widget;
+function buildRequestUrl($path_to_config, $widget) {
+    // set acceptable values
+    $formats = array('json', 'xml');
+    $limits = array( 'aggregateStats' => 'aggreagateStatsLimit', 
+		     'geo' => 'geoLimit',
+		     'organics' => 'organicsLimit',
+		     'pages' => 'pagesLimit',
+		     'referrers' => 'referrersLimit',
+		     'visitors' => 'visitorsLimit' );
+    $functions = array('aggregateStats', 'concurrents', 'geo', 'organics',
+                   'pages', 'referrers', 'trends', 'visitors', 'list_sites');
     // include config file for widget
     include $path_to_config;
 

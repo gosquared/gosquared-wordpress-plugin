@@ -28,6 +28,21 @@ function gs_init() {
     wp_register_style('gs_style', $style_url);
 }
 
+//function gs_activate(){
+//    //Get the $wpdb global
+//   global $wpdb;
+//   //Set a default result
+//   $result = false;
+//   //Install table, if it doesnt exist already
+//   $sql = sprintf('CREATE TABLE IF NOT EXISTS `%sgs_meta` (
+//      `meta_id` bigint(20) UNSIGNED NOT NULL auto_increment,
+//      `meta_key` varchar(255),
+//      `meta_value` longtext,
+//      PRIMARY KEY (`meta_id`)
+//   )',$wpdb->prefix);
+//   $result = $wpdb->query($sql);
+//}
+
 function gs_options() {
     $page = add_options_page('GoSquared', 'GoSquared', 'manage_options', 'gs-livestats', 'gs_options_page');
     /* Using registered $page handle to hook stylesheet loading */
@@ -62,27 +77,6 @@ function gs_fail($message) {
   }
  */
 
-function write_apiproxy_config($config) {
-    $apiKey = get_option('gstc_apiKey');
-    if (!$apiKey)
-	return 1;
-    $acct = get_option('gstc_acct');
-    if (!$acct)
-	return 2;
-    $timeout = get_option('gstc_cacheTimeout');
-    if (!$timeout || $timeout < MIN_TIMEOUT)
-	$timeout = 5;
-    $apiconfig = @fopen($config, "w");
-    if (!$apiconfig)
-	return 3;
-    if (!flock($apiconfig, LOCK_EX))
-	return 4;
-    if (!fwrite($apiconfig, "<?php define('API_KEY','" . $apiKey . "'); define('SITE_TOKEN','" . $acct . "'); define('CACHE_TIMEOUT', " . $timeout . "); ?>"))
-	return 5;
-    flock($apiconfig, LOCK_UN);
-    fclose($apiconfig);
-}
-
 function gs_options_page() {
     global $style_file, $style_url;
 
@@ -112,13 +106,6 @@ function gs_options_page() {
 		update_option('gstc_trackPreview', $trackPreview);
 		update_option('gstc_trackUser', $trackUser);
 		update_option('gstc_cacheTimeout', $cacheTimeout);
-		$config_dir = WP_PLUGIN_DIR . "/gosquared-livestats/apiproxyconfig.php";
-		$error = write_apiproxy_config($config_dir);
-		echo "<br />";
-		if ($error) {
-		    gs_fail("Error writing settings to file " . $config_dir . ", please check your file permissions.");
-		    echo '<br/>';
-		}
 		gs_success('Settings updated successfully');
 		echo "<br/>";
 	    } else {
@@ -427,13 +414,21 @@ class WP_Widget_GS_OnlineVisitors extends WP_Widget {
 	    echo $before_title . $title . $after_title;
 	// set local script settings
 	?> <script type="text/javascript">
-		    var plugin_proxy_url = '<?php echo WP_PLUGIN_URL; ?>/gosquared-livestats/apiproxy.php?widget=';
+		    var plugin_proxy_url = '<?php echo '?gs_api_proxy&widget=' ?>';
 		    var cache_timeout = <?php echo get_option('gstc_cacheTimeout'); ?> * 1000; // seconds -> milliseconds 
 	</script><?php
-	$widget_url = WP_PLUGIN_URL . "/gosquared-livestats/widgets/gs-onlinevisitors/" . $instance['style'] . "/gs-onlinevisitors.html";
+	$widget_url = WP_PLUGIN_DIR . "/gosquared-livestats/widgets/gs-onlinevisitors/" . $instance['style'] . "/gs-onlinevisitors.html";
 	echo file_get_contents($widget_url);
 	echo $after_widget;
     }
 
 }
+
+function api_proxy(){
+    if(isset($_GET['gs_api_proxy'])){
+	include 'apiproxy.php';
+    }
+}
+
+api_proxy();
 ?>

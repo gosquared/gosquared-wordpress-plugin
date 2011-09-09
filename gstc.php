@@ -3,7 +3,7 @@
 Plugin Name: GoSquared
 Plugin URI: http://www.gosquared.com/
 Description: The official GoSquared Wordpress plugin to load the Tracking Code for GoSquared applications
-Version: 0.1
+Version: 0.2.1
 Author: GoSquared
 Author URI: http://www.gosquared.com/about/
 */
@@ -50,7 +50,7 @@ function gs_options_page() {
 	if(isset($_POST['gs_acct'])){
 		// Handle submission
 		$acct = $_POST['gs_acct'];
-		if(strlen($acct) == 13 && preg_match('/GSN-[0-9]{6,7}-[A-Z]{1}/', $acct)){
+		if(preg_match('/GSN-[0-9]{6,7}-[A-Z]{1}/', $acct)){
 			update_option('gstc_acct', $acct);
 			echo "<br />";
 			gs_success('Account code updated successfully');

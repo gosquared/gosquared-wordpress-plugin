@@ -26,6 +26,12 @@ div.gs_fail{
 	color: #fff;
 }
 
+div.gs_warn{
+    background-color:#fedb7b;
+    border: 1px solid;
+    border-color:#ff5900;
+}
+
 div.center{
 	text-align:center;
 }

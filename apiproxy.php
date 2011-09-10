@@ -1,11 +1,12 @@
 <?php
-ini_set("display_errors", "On");
+//ini_set("display_errors", "On");
 
 define('API_KEY', get_option('gstc_apiKey'));
 define('SITE_TOKEN', get_option('gstc_acct'));
 $cache_timeout = get_option('gstc_cacheTimeout');
 if(!$cache_timeout || $cache_timeout < 5) $cache_timeout = 5;
 define('CACHE_TIMEOUT', $cache_timeout);
+define('GS_API_CACHE_DIR', WP_PLUGIN_DIR.'/gosquared-livestats/apicache');
 
 
 if (!defined('CACHE_TIMEOUT'))
@@ -34,9 +35,13 @@ if ($cachedDataJSON == null) {
 }
 
 function loadCached($widget) {
-    $cache_id = "gs_cache_$widget";
-    $cache = get_option($cache_id);
-    if($cache) return $cache;
+//    $cache_id = "gs_cache_$widget";
+//    $cache = get_option($cache_id);
+//    if($cache) return $cache;
+//    else return null;
+    $path_to_cache = GS_API_CACHE_DIR.'/'.$widget;
+    if (is_readable($path_to_cache))
+	return file_get_contents($path_to_cache);
     else return null;
 }
 
@@ -61,7 +66,8 @@ function update_cache($widget) {
     $latest = json_decode($latestJSON, true);
     $latest["cache_time"] = time();
     $latestJSON = json_encode($latest);
-    update_option("gs_cache_$widget", $latestJSON);
+//    update_option("gs_cache_$widget", $latestJSON);
+    file_put_contents(GS_API_CACHE_DIR."/$widget", $latestJSON);
     return $latestJSON;
 }
 

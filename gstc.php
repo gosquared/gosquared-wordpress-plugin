@@ -9,7 +9,7 @@
   Contributions by: Aaron Parker, Jack Kingston
  */
 
-ini_set('display_errors', "on");
+//ini_set('display_errors', "on");
 add_option('gstc_acct');
 add_option('gstc_trackAdmin');
 add_option('gstc_trackPreview');
@@ -20,6 +20,7 @@ add_action('admin_menu', 'gs_options');
 gs_print_gstc();
 
 define('MIN_TIMEOUT', 5);
+define('GS_API_CACHE_DIR', WP_PLUGIN_DIR.'/gosquared-livestats/apicache');
 
 function gs_init() {
     $style_url = WP_PLUGIN_URL . '/gosquared-livestats/gs.css';
@@ -59,6 +60,10 @@ function gs_success($message) {
 
 function gs_fail($message) {
     echo '<div class="center"><div class="gs_fail">' . $message . '</div></div>';
+}
+
+function gs_warn($message) {
+    echo '<div class="center"><div class="gs_warn">' . $message . '</div></div>';
 }
 
 /*
@@ -115,10 +120,22 @@ function gs_options_page() {
 		    $msg .= '<p>Site token not of valid format. Must be like GSN-000000-X</p>';
 		if (!$valid_apiKey)
 		    $msg .= '<p>API key not of valid format. Must be a 16 characters long and only contains capital letters and numbers</p>';
+		if(!$msg) $msg = 'An error occurred';
 		gs_fail($msg);
 		echo "<br/>";
 	    }
 	}
+	
+	if(!file_exists(GS_API_CACHE_DIR)){
+	    if(!mkdir(GS_API_CACHE_DIR, 0766)){
+		gs_warn('Unable to create the cache directory at '.GS_API_CACHE_DIR);
+		echo '<br />';
+	    }
+	}
+	elseif(!is_writeable(GS_API_CACHE_DIR)){
+		gs_warn('The cache directory at '.GS_API_CACHE_DIR.' is not writeable.<br />Data for GoSquared widgets will not be cached.<br />To fix this, change the permissions of this folder to 766');
+		echo '<br />';
+	    }
 
 	$acct = get_option('gstc_acct');
 	$apiKey = get_option('gstc_apiKey');

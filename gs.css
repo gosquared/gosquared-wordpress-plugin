@@ -1,4 +1,8 @@
-div.gs_success, div.gs_fail{
+div.message_wrapper{
+    padding: 10px 0px;
+}
+
+div.gs_success, div.gs_fail, div.gs_warn{
 	border: solid 1px #CCCCCC;
 	padding: 10px;
 	margin: 0 auto;
@@ -30,6 +34,7 @@ div.gs_warn{
     background-color:#fedb7b;
     border: 1px solid;
     border-color:#ff5900;
+    color: #000;
 }
 
 div.center{

@@ -20,6 +20,7 @@ add_action('admin_menu', 'gs_options');
 gs_print_gstc();
 
 define('MIN_TIMEOUT', 5);
+define('DEFAULT_CACHE_TIMEOUT', 30);
 define('GS_API_CACHE_DIR', WP_PLUGIN_DIR.'/gosquared-livestats/apicache');
 
 function gs_init() {
@@ -55,15 +56,15 @@ function gs_admin_style() {
 }
 
 function gs_success($message) {
-    echo '<div class="center"><div class="gs_success">' . $message . '</div></div>';
+    echo '<div class="center"><div class="message_wrapper"><div class="gs_success">' . $message . '</div></div></div>';
 }
 
 function gs_fail($message) {
-    echo '<div class="center"><div class="gs_fail">' . $message . '</div></div>';
+    echo '<div class="center"><div class="message_wrapper"><div class="gs_fail">' . $message . '</div></div></div>';
 }
 
 function gs_warn($message) {
-    echo '<div class="center"><div class="gs_warn">' . $message . '</div></div>';
+    echo '<div class="center"><div class="message_wrapper"><div class="gs_warn">' . $message . '</div></div></div>';
 }
 
 /*
@@ -92,7 +93,8 @@ function gs_options_page() {
 
     <div id="gs-admin-settings-page">
         <br />
-
+	<div style="width: 100%; height: 50px; background: #1E1E1E url('<?php echo WP_PLUGIN_URL . '/gosquared-livestats/head_01_300x50.png'; ?>') no-repeat; background-position: left top; border: 1px solid #000000; -webkit-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; -webkit-box-shadow: 0px 1px 0px #ffffff; -moz-box-shadow: 0px 1px 0px #ffffff; -o-box-shadow: 0px 1px 0px #ffffff; box-shadow: 0px 1px 0px #ffffff;" id="gosquaredlogo">
+    	</div>
 	<?php
 	if (isset($_POST['gs_acct'])) {
 	    // Handle submission
@@ -102,8 +104,8 @@ function gs_options_page() {
 	    $trackPreview = isset($_POST['gs_trackPreview']) ? $_POST['gs_trackPreview'] : "Yes";
 	    $trackUser = isset($_POST['gs_trackUser']) ? $_POST['gs_trackUser'] : 'Username';
 	    $cacheTimeout = isset($_POST['gs_cacheTimeout']) ? $_POST['gs_cacheTimeout'] : 30;
-	    $valid_acct = preg_match('/GSN-[0-9]{6,7}-[A-Z]{1}/', $acct);
-	    $valid_apiKey = preg_match('/[0-9A-Z]{16}/', $apiKey);
+	    $valid_acct = preg_match('/^GSN-[0-9]{6,7}-[A-Z]{1}$/', $acct);
+	    $valid_apiKey = preg_match('/^[0-9A-Z]{16}$/', $apiKey);
 	    if ($valid_acct && $valid_apiKey) {
 		update_option('gstc_acct', $acct);
 		update_option('gstc_apiKey', $apiKey);
@@ -112,9 +114,7 @@ function gs_options_page() {
 		update_option('gstc_trackUser', $trackUser);
 		update_option('gstc_cacheTimeout', $cacheTimeout);
 		gs_success('Settings updated successfully');
-		echo "<br/>";
 	    } else {
-		echo '<br/>';
 		$msg = "";
 		if (!$valid_acct)
 		    $msg .= '<p>Site token not of valid format. Must be like GSN-000000-X</p>';
@@ -122,20 +122,8 @@ function gs_options_page() {
 		    $msg .= '<p>API key not of valid format. Must be a 16 characters long and only contains capital letters and numbers</p>';
 		if(!$msg) $msg = 'An error occurred';
 		gs_fail($msg);
-		echo "<br/>";
 	    }
 	}
-	
-	if(!file_exists(GS_API_CACHE_DIR)){
-	    if(!mkdir(GS_API_CACHE_DIR, 0766)){
-		gs_warn('Unable to create the cache directory at '.GS_API_CACHE_DIR);
-		echo '<br />';
-	    }
-	}
-	elseif(!is_writeable(GS_API_CACHE_DIR)){
-		gs_warn('The cache directory at '.GS_API_CACHE_DIR.' is not writeable.<br />Data for GoSquared widgets will not be cached.<br />To fix this, change the permissions of this folder to 766');
-		echo '<br />';
-	    }
 
 	$acct = get_option('gstc_acct');
 	$apiKey = get_option('gstc_apiKey');
@@ -145,7 +133,7 @@ function gs_options_page() {
 	$cacheTimeout = get_option('gstc_cacheTimeout');
 	?>
 
-        <div class="gs-admin-header">
+	<div class="gs-admin-header">
 
 	    <?php
 	    if (!$acct)
@@ -171,91 +159,103 @@ function gs_options_page() {
 	    if (!$cacheTimeout)
 		$cacheTimeout = 30;
 	    ?>
-    	<div style="width: 100%; height: 50px; background: #1E1E1E url('<?php echo WP_PLUGIN_URL . '/gosquared-livestats/head_01_300x50.png'; ?>') no-repeat; background-position: left top; border: 1px solid #000000; -webkit-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; -webkit-box-shadow: 0px 1px 0px #ffffff; -moz-box-shadow: 0px 1px 0px #ffffff; -o-box-shadow: 0px 1px 0px #ffffff; box-shadow: 0px 1px 0px #ffffff;" id="gosquaredlogo">
-    	</div>
 
-    	<h2>GoSquared Widgets - Share your stats with your audience.</h2>  
-    	<p>
-    	    Go to you <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'>Wordpress Widget settings</a> to enable any GoSquared widgets you want.
-    	</p>
-    	<p>
-    	    Ensure you have entered both your Site Token and API Key here first.    
-    	</p>
-        </div>
+	    <h2>GoSquared Widgets - Share your stats with your audience.</h2>
+	    <?php
 
-        <form name="gs-options" action="" method = "post">
+	    $cachedir_help_link = '<a href = "http://www.gosquared.com/support/wiki/wordpress_plugin#cachedir" target="_blank">What does this mean?</a>';
+	    $permissions_help = '<a href = "http://www.gosquared.com/support/wiki/wordpress_plugin#cachedir-permissions" target="_blank">More information</a>';
+	    //$dismiss_anchor = '<form name="gs-notice-dismiss" action="" method = "post"><input type="hidden" name="cachedir_dismiss" value="yes"/></form>';
+	    if(!file_exists(GS_API_CACHE_DIR)){
+		if(!mkdir(GS_API_CACHE_DIR, 0766)){
+		    gs_warn('Unable to create the cache directory at '.GS_API_CACHE_DIR." $cachedir_help_link");
+		}
+	    }
+	    elseif(!is_writeable(GS_API_CACHE_DIR)){
+		    gs_warn('The cache directory at '.GS_API_CACHE_DIR.' is not writeable.<br />Data for GoSquared widgets will not be cached. '.$cachedir_help_link.'<br />To fix this, change the permissions of this directory to 766 '.$permissions_help);
+		}
 
-    	<h2>Site Token - Start tracking "<?php echo get_bloginfo('name'); ?>" with GoSquared.</h2>
-    	<p>
-    	    Your Site Token enables GoSquared to start tracking your site. Sign up for a free 
-    	    trial of GoSquared to get yours now.
-    	</p>
+	    ?>
+	    <p>
+		Go to you <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'>Wordpress Widget settings</a> to enable GoSquared widgets.
+	    </p>
+	    <p>
+		Ensure you have entered both your Site Token and API Key in the fields below first.    
+	    </p>
+	</div>
+	
+	<form name="gs-options" action="" method = "post">
 
-    	<div class="input-field">
-    	    <span class="input-label">Your GoSquared site token </span>
-    	    <input class="gs-text-input" type="text" name="gs_acct" value = "<?= $default_text ?>" 
-    		   onclick="if(this.value=='<?= $default_text ?>')this.value=''" 
-    		   onblur="if(this.value=='')this.value='<?= $default_text ?>'"/>&nbsp;
-    	    <a href="http://www.gosquared.com/support/wiki/wordpress_plugin" target="_blank">What's this?</a>
-    	</div>
+	    <h2>Site Token - Start tracking "<?php echo get_bloginfo('name'); ?>" with GoSquared.</h2>
+	    <p>Your Site Token enables GoSquared to monitor your Wordpress site's traffic.</p>
+	    <p>If you haven't yet registered your Site with GoSquared, <a href="https://www.gosquared.com/join/" target="_blank">Sign up for free</a>.</p>
 
-            <h2>API Key - Share your stats via GoSquared Widgets.</h2>
-            <p>
-                Your API Key enables you to share your stats with your blog visitors via Widgets.
-                Widgets will not work without an API Key.
-            </p>  
 
-            <div class="input-field">
-    	    <span class="input-label">Your GoSquared API key </span>
-    	    <input class="gs-text-input" type="text" name="gs_apiKey" value = "<?= $default_apiKey ?>"
-    		   onclick="if(this.value=='<?= $default_apiKey ?>')this.value=''"
-    		   onblur="if(this.value=='')this.value='<?= $default_apiKey ?>'"/>&nbsp;
-    	    <a href="http://www.gosquared.com/support/wiki/wordpress_plugin" target="_blank">What's this?</a>
-            </div>
+	    <div class="input-field">
+		<span class="input-label">Your GoSquared site token </span>
+		<input class="gs-text-input" type="text" name="gs_acct" value = "<?= $default_text ?>" 
+		       onclick="if(this.value=='<?= $default_text ?>')this.value=''" 
+		       onblur="if(this.value=='')this.value='<?= $default_text ?>'"/>&nbsp;
+		<a href="http://www.gosquared.com/support/wiki/faqs#faq-site-token" target="_blank">What's this?</a>
+	    </div>
 
-            <h2>Advanced Settings</h2>
-            <table class="gs-settings">	    
-    	    <tr>
-    		<td class="label">Track admin pages </td>
-    		<td><input type="radio" name="gs_trackAdmin" value="Yes" id="trackAdmin" <?php if ($trackAdmin == 'Yes')
-		echo 'checked="checked" '; ?>/> Yes</td>
-    		<td><input type="radio" name="gs_trackAdmin" value="No" id="trackAdmin" <?php if ($trackAdmin == 'No')
-		echo 'checked="checked" '; ?>/> No</td>
-    	    </tr>
-    	    <tr>
-    		<td class="label">Track post preview pages</td>
-    		<td><input type="radio" name="gs_trackPreview" value="Yes" id="trackPreview" <?php if ($trackPreview == 'Yes')
-		echo 'checked="checked" '; ?>/> Yes</td>
-    		<td><input type="radio" name="gs_trackPreview" value="No" id="trackPreview" <?php if ($trackPreview == 'No')
-		echo 'checked="checked" '; ?>/> No</td>
-    	    </tr>
-    	    <tr>
-    		<td class="label">Tag individual users with </td>
-    		<td><input type="radio" name="gs_trackUser" value="Off" id="trackUser" <?php if ($trackUser == 'Off')
-			       echo 'checked="checked" '; ?>/> Off</td>
-    		<td><input type="radio" name="gs_trackUser" value="UserID" id="trackUser" <?php if ($trackUser == 'UserID')
-			       echo 'checked="checked" '; ?>/> User ID</td>
-    		<td><input type="radio" name="gs_trackUser" value="Username" id="trackUser" <?php if ($trackUser == 'Username')
-			       echo 'checked="checked" '; ?> /> Username</td>
-    		<td class="wide"><input type="radio" name="gs_trackUser" value="DisplayName" id="trackUser" <?php if ($trackUser == 'DisplayName')
-			       echo 'checked="checked" '; ?>/> Display Name</td>
-    	    </tr>
-    	    <tr>
-    		<td class="label">Set widget cache timeout</td>
-    		<td><input type="radio" name="gs_cacheTimeout" value="5" id="chacheTimeout" <?php if ($cacheTimeout == 5)
-	echo 'checked="checked"'; ?>/>5s</td>
-    		<td><input type="radio" name="gs_cacheTimeout" value="15" id="chacheTimeout" <?php if ($cacheTimeout ==
-	    15)
-	echo 'checked="checked"'; ?>/>15s</td>
-    		<td><input type="radio" name="gs_cacheTimeout" value="30" id="chacheTimeout" <?php if ($cacheTimeout ==
-	    30)
-	echo 'checked="checked"'; ?>/>30s</td>
-    		<td><input type="radio" name="gs_cacheTimeout" value="60" id="chacheTimeout" <?php if ($cacheTimeout ==
-	    60)
-	echo 'checked="checked"'; ?>/>60s</td>
-    	    </tr>
-    	</table>
-    	<input type="submit" value="Save Settings" class="gs-button" />
+		<h2>API Key - Share your stats via GoSquared Widgets.</h2>
+		<p>
+		    Your API Key enables you to share your stats with your blog visitors via Widgets.<br />
+		    Widgets will not work without an API Key, but traffic monitoring will.
+		</p>  
+
+		<div class="input-field">
+		<span class="input-label">Your GoSquared API key </span>
+		<input class="gs-text-input" type="text" name="gs_apiKey" value = "<?= $default_apiKey ?>"
+		       onclick="if(this.value=='<?= $default_apiKey ?>')this.value=''"
+		       onblur="if(this.value=='')this.value='<?= $default_apiKey ?>'"/>&nbsp;
+		<a href="http://www.gosquared.com/support/wiki/faqs#faq-API-key" target="_blank">What's this?</a>
+		</div>
+
+		<h2>Advanced Settings</h2>
+		<table class="gs-settings">	    
+		<tr>
+		    <td class="label">Track admin pages </td>
+		    <td><input type="radio" name="gs_trackAdmin" value="Yes" id="trackAdmin" <?php if ($trackAdmin == 'Yes')
+		    echo 'checked="checked" '; ?>/> Yes</td>
+		    <td><input type="radio" name="gs_trackAdmin" value="No" id="trackAdmin" <?php if ($trackAdmin == 'No')
+		    echo 'checked="checked" '; ?>/> No</td>
+		</tr>
+		<tr>
+		    <td class="label">Track post preview pages</td>
+		    <td><input type="radio" name="gs_trackPreview" value="Yes" id="trackPreview" <?php if ($trackPreview == 'Yes')
+		    echo 'checked="checked" '; ?>/> Yes</td>
+		    <td><input type="radio" name="gs_trackPreview" value="No" id="trackPreview" <?php if ($trackPreview == 'No')
+		    echo 'checked="checked" '; ?>/> No</td>
+		</tr>
+		<tr>
+		    <td class="label">Tag individual users with </td>
+		    <td><input type="radio" name="gs_trackUser" value="Off" id="trackUser" <?php if ($trackUser == 'Off')
+				   echo 'checked="checked" '; ?>/> Off</td>
+		    <td><input type="radio" name="gs_trackUser" value="UserID" id="trackUser" <?php if ($trackUser == 'UserID')
+				   echo 'checked="checked" '; ?>/> User ID</td>
+		    <td><input type="radio" name="gs_trackUser" value="Username" id="trackUser" <?php if ($trackUser == 'Username')
+				   echo 'checked="checked" '; ?> /> Username</td>
+		    <td class="wide"><input type="radio" name="gs_trackUser" value="DisplayName" id="trackUser" <?php if ($trackUser == 'DisplayName')
+				   echo 'checked="checked" '; ?>/> Display Name</td>
+		</tr>
+		<tr>
+		    <td class="label">Set widget cache timeout</td>
+		    <td><input type="radio" name="gs_cacheTimeout" value="5" id="chacheTimeout" <?php if ($cacheTimeout == 5)
+	    echo 'checked="checked"'; ?>/>5s</td>
+		    <td><input type="radio" name="gs_cacheTimeout" value="15" id="chacheTimeout" <?php if ($cacheTimeout ==
+		15)
+	    echo 'checked="checked"'; ?>/>15s</td>
+		    <td><input type="radio" name="gs_cacheTimeout" value="30" id="chacheTimeout" <?php if ($cacheTimeout ==
+		30)
+	    echo 'checked="checked"'; ?>/>30s</td>
+		    <td><input type="radio" name="gs_cacheTimeout" value="60" id="chacheTimeout" <?php if ($cacheTimeout ==
+		60)
+	    echo 'checked="checked"'; ?>/>60s</td>
+		</tr>
+	    </table>
+	    <input type="submit" value="Save Settings" class="gs-button" />
         </form>
     </div>
 
@@ -427,12 +427,14 @@ class WP_Widget_GS_OnlineVisitors extends WP_Widget {
 	extract($args);
 	$title = apply_filters('widget_title', $instance['title']);
 	echo $before_widget;
+	$cache_timeout = get_option('gstc_cacheTimeout');
+	if(!$cache_timeout) $cache_timeout = DEFAULT_CACHE_TIMEOUT;
 	if ($title)
 	    echo $before_title . $title . $after_title;
 	// set local script settings
 	?> <script type="text/javascript">
 		    var plugin_proxy_url = '<?php echo '?gs_api_proxy&widget=' ?>';
-		    var cache_timeout = <?php echo get_option('gstc_cacheTimeout'); ?> * 1000; // seconds -> milliseconds 
+		    var cache_timeout = (+'<?php echo $cache_timeout ?>' || 30) * 1000; // seconds -> milliseconds 
 	</script><?php
 	$widget_url = WP_PLUGIN_DIR . "/gosquared-livestats/widgets/gs-onlinevisitors/" . $instance['style'] . "/gs-onlinevisitors.html";
 	echo file_get_contents($widget_url);
@@ -440,6 +442,10 @@ class WP_Widget_GS_OnlineVisitors extends WP_Widget {
     }
 
 }
+
+/**
+ * Intercept response if gs_api_proxy param is set
+ */
 
 function api_proxy(){
     if(isset($_GET['gs_api_proxy'])){

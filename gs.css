@@ -1,4 +1,8 @@
-div.gs_success, div.gs_fail{
+div.message_wrapper{
+    padding: 10px 0px;
+}
+
+div.gs_success, div.gs_fail, div.gs_warn{
 	border: solid 1px #CCCCCC;
 	padding: 10px;
 	margin: 0 auto;
@@ -13,6 +17,7 @@ div.gs_success, div.gs_fail{
   -o-box-shadow: 0px 1px 0px #ffffff; 
   box-shadow: 0px 1px 0px #ffffff;
 }
+
 div.gs_success{
 	background-color: #78ff4b;
 	border: 1px solid #337711;
@@ -25,6 +30,79 @@ div.gs_fail{
 	color: #fff;
 }
 
+div.gs_warn{
+    background-color:#fedb7b;
+    border: 1px solid;
+    border-color:#ff5900;
+    color: #000;
+}
+
 div.center{
 	text-align:center;
+}
+
+#gs-admin-settings-page{
+    width: 800px;
+    font: 13px/24px 'Helvetica neue', Helvetica, Arial, Verdana, sans-serif;
+    color: #555;
+}
+
+#gs-admin-settings-page h2{
+    margin-top: 24px;
+    margin-bottom: 13px;
+    font-weight: normal;
+}
+
+#gs-admin-settings-page p{
+    margin: 0;
+    line-height: 24px;
+    font-size: 13px;
+}
+
+#gs-admin-settings-page .input-field{
+    margin-top: 24px;
+    margin-bottom: 48px;
+}
+
+#gs-admin-settings-page .input-field .input-label{
+    display: inline-block;
+    width: 160px;
+}
+
+#gs-admin-settings-page .input-field .gs-text-input{
+    width: 160px;
+    height: 30px;
+}
+
+#gs-admin-settings-page table{
+    margin-top: 12px;
+    margin-bottom: 36px;
+}
+
+#gs-admin-settings-page td{
+    width: 86px;
+    height: 36px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#gs-admin-settings-page td.wide{
+    width: 100px;
+}
+
+#gs-admin-settings-page td.label{
+    width: 168px;
+}
+
+#gs-admin-settings-page .gs-button{
+    width: 120px;
+    height: 36px;
+    border: 1px solid #aaa;
+    border-radius: 6px 6px 6px 6px;
+    background-color: #e0e0e0;
+    box-shadow: inset 0px 0px 10px #aaa;
+    -webkit-box-shadow: inset 0px 0px 10px #aaa; 
+    -moz-box-shadow: inset 0px 0px 10px #aaa;
+    text-align: center;
+    cursor: pointer;
 }

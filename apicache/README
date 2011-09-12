@@ -1,0 +1,1 @@
+The GoSquared Wordpress plugin caches responses from the GoSquared API here. This is to avoid each and every visitor to the wordpress site triggering an API request and therefore contributing to the usage of limited API allowances.

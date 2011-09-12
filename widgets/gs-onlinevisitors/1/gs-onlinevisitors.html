@@ -1,0 +1,146 @@
+<script type="text/javascript">
+    jQuery(document).ready( (function($) {
+    
+        var WIDGET_NAME = 'gs-onlinevisitors';
+        var concurrents = 0;
+        var range_max = 1;
+        var fetchSuccess;
+    
+        function fetchConcurrentsData(callback) {
+            $.getJSON(plugin_proxy_url+WIDGET_NAME, function(data) {
+                // get user stats
+                concurrents = data.concurrents;
+                range_max = data.range_max;
+                fetchSuccess = true;
+                if (callback) callback();
+            });
+        }
+       
+        function updateDisplay() {
+            if ($('#gs-onlinevisitors-widget .gs-content-pane').css("display") == 'none')
+                showContent();
+            $('#gs-onlinevisitors-widget .gs-top .gs-visitor-count').empty();
+            $('#gs-onlinevisitors-widget .gs-top .gs-visitor-count').append(
+                concurrents
+            );
+        }
+        
+        function showContent() {
+            $('#gs-onlinevisitors-widget .gs-ajax-loading').fadeOut(500, 
+                $('#gs-onlinevisitors-widget .gs-content-pane').fadeIn(500));
+        }
+       
+        fetchConcurrentsData(updateDisplay);
+
+        setInterval(function() {
+     	    fetchConcurrentsData();
+            if (fetchSuccess) {
+                updateDisplay();
+                fetchSuccess = false;
+            }
+        }, cache_timeout);
+    
+    })(jQuery) );
+</script>
+<style type="text/css">
+    #gs-onlinevisitors-widget-container{
+        height: 155px;
+        width: 125px;
+        text-align: center;
+        margin: auto;
+    }    
+    
+    #gs-onlinevisitors-widget-container div,span{
+        position: relative;
+        font-family: Helvetica,Arial,'DejaVu Sans','Liberation Sans',Freesans,sans-serif;
+    }
+    
+    #gs-onlinevisitors-widget{
+        color: black;
+        height: 125px;
+        width: 125px;
+        border: 1px solid #aaa;
+        border-radius: 6px 6px 6px 6px;
+        background-color: #e0e0e0;
+        box-shadow: inset 0px 0px 25px #aaa;
+        -webkit-box-shadow: inset 0px 0px 25px #aaa; 
+        -moz-box-shadow: inset 0px 0px 25px #aaa;
+        text-align: center;
+        overflow: hidden;
+    }
+    
+    #gs-onlinevisitors-widget .gs-ajax-loader{
+        display: block;
+        width: 100%;
+        margin-top: 50px;
+    }
+    
+    #gs-onlinevisitors-widget-container .gs-a{
+	color: #555;
+	text-shadow: 1px 1px 0px #eee;
+	text-decoration:none;
+	font-size: 12px;
+    }
+    
+    
+    #gs-onlinevisitors-widget .gs-content-pane{
+        display: none;
+        height: 100%;
+        width: 100%;
+    }
+    
+    #gs-onlinevisitors-widget .gs-top{
+        display: block;
+        height: 75px;
+        width: 100%;
+        border-bottom: 1px solid #aaa;
+        font-size: 34px;
+    }
+    
+    #gs-onlinevisitors-widget .gs-top .gs-visitor-count{
+        display: block;
+        width: 100%;
+        position: relative;
+        top: 26px;
+    }
+    
+    #gs-onlinevisitors-widget .gs-bottom{
+        display: block;
+        height: 50px;
+        width: 100%;
+        border-top: 1px solid #eee;
+        font-size: 15px;
+        padding-top: 10px;
+    }
+    
+    #gs-onlinevisitors-widget-footer{
+        display: block;
+        width: 100%;
+        height: 22px;
+        overflow: hidden;
+        font: 10px/22px 'Helvetica neue', Helvetica, Arial, Verdana, sans-serif;
+        color: #aaa;
+        text-shadow: 1px 1px 0px #eee;
+        text-align: center;
+    }
+    
+    #gs-onlinevisitors-widget-footer a{
+        color: #555;
+        text-shadow: 1px 1px 0px #eee;
+        text-decoration:none;
+    }
+</style>
+<div id="gs-onlinevisitors-widget-container">
+    <div id="gs-onlinevisitors-widget">
+        <div class="gs-content-pane">    
+            <div class="gs-top">
+                <span class="gs-visitor-count"><!-- visitor count here --></span>
+            </div>
+            <div class="gs-bottom">
+                People online
+            </div>
+        </div>
+        <span class="gs-ajax-loader">Loading...</span>
+    </div>
+    <div id="gs-onlinevisitors-widget-footer"><span>Powered by <a class="gs-a" href="http://www.gosquared.com/" target="_blank">GoSquared</a></span></div>
+</div>

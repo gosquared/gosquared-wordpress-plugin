@@ -5,6 +5,28 @@ jQuery(document).ready( (function($) {
     var concurrents = 0;
     var range_max = 1;
     var fetchSuccess;
+    
+    //    function payloadError(j, txt, error){
+//	$('.widget_'+WIDGET_NAME).hide();
+//    }
+
+//    function fetchConcurrentsData(callback) {
+//	$.ajax({
+//	  url: urplugin_proxy_url+WIDGET_NAME,
+//	  dataType: 'json',
+//	  data: data,
+//	  success: function(data) {
+//		// get user stats
+//		if(!data.concurrents || !data.range_max) return payloadError();
+//		concurrents = data.concurrents;
+//		range_max = data.range_max;
+//		fetchSuccess = true;
+//		if (callback) callback();
+//	    },
+//	    error: payloadError
+//	});
+//    }
+    
 
     function fetchConcurrentsData(callback) {
         $.getJSON(plugin_proxy_url+WIDGET_NAME, function(data) {

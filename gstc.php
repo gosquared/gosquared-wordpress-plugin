@@ -1,13 +1,32 @@
 <?php
 /*
-  Plugin Name: GoSquared
-  Plugin URI: http://www.gosquared.com/
-  Description: The official GoSquared Wordpress plugin to load the Tracking Code for GoSquared applications
-  Version: 0.3.0
-  Author: GoSquared
-  Author URI: http://www.gosquared.com/about/
-  Contributions by: Aaron Parker, Jack Kingston
+Plugin Name: GoSquared
+Plugin URI: http://www.gosquared.com/
+Description: The official GoSquared Wordpress plugin to load the Tracking Code for GoSquared applications
+Version: 0.3.0
+License: GPL3 http://www.gnu.org/licenses/gpl.html
+Author: GoSquared
+Author URI: http://www.gosquared.com/about/
+Contributions by: Aaron Parker, Jack Kingston
  */
+
+/*  Copyright 2011 GoSquared (email : support@gosquared.com)
+
+    This file is part of GoSquared Wordpress Plugin.
+
+    GoSquared Wordpress Plugin is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    GoSquared Wordpress Plugin is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with GoSquared Wordpress Plugin.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 //ini_set('display_errors', "on");
 add_option('gstc_acct');

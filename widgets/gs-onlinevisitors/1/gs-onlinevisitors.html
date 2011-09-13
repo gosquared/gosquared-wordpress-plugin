@@ -42,7 +42,13 @@
     
     })(jQuery) );
 </script>
+
 <style type="text/css">
+
+	li#gs_onlinevisitors-3{
+		list-style: none;
+	}
+
     #gs-onlinevisitors-widget-container{
         height: 155px;
         width: 125px;
@@ -52,7 +58,7 @@
     
     #gs-onlinevisitors-widget-container div,span{
         position: relative;
-        font-family: Helvetica,Arial,'DejaVu Sans','Liberation Sans',Freesans,sans-serif;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     
     #gs-onlinevisitors-widget{
@@ -62,9 +68,10 @@
         border: 1px solid #aaa;
         border-radius: 6px 6px 6px 6px;
         background-color: #e0e0e0;
-        box-shadow: inset 0px 0px 25px #aaa;
         -webkit-box-shadow: inset 0px 0px 25px #aaa; 
         -moz-box-shadow: inset 0px 0px 25px #aaa;
+        -o-box-shadow: inset 0px 0px 25px #aaa;
+        box-shadow: inset 0px 0px 25px #aaa;
         text-align: center;
         overflow: hidden;
     }
@@ -76,10 +83,9 @@
     }
     
     #gs-onlinevisitors-widget-container .gs-a{
-	color: #555;
-	text-shadow: 1px 1px 0px #eee;
-	text-decoration:none;
-	font-size: 12px;
+		color: #555;
+		text-shadow: 1px 1px 0px #eee;
+		text-decoration:none;
     }
     
     
@@ -91,44 +97,57 @@
     
     #gs-onlinevisitors-widget .gs-top{
         display: block;
-        height: 75px;
+        height: 85px;
         width: 100%;
         border-bottom: 1px solid #aaa;
         font-size: 34px;
     }
     
     #gs-onlinevisitors-widget .gs-top .gs-visitor-count{
-        display: block;
-        width: 100%;
-        position: relative;
-        top: 26px;
+        font-size: 36px;
+   		position: relative;
+    	top: 22px;
+    	font-weight: 200;
+    	text-shadow: 0px 1px 0px #ffffff;
+    	text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
     }
     
     #gs-onlinevisitors-widget .gs-bottom{
         display: block;
+        font-weight: bold;
         height: 50px;
         width: 100%;
         border-top: 1px solid #eee;
-        font-size: 15px;
+        font-size: 14px;
         padding-top: 10px;
+        text-shadow: 0px 1px 0px #ffffff;
+    	text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
     }
     
     #gs-onlinevisitors-widget-footer{
         display: block;
         width: 100%;
-        height: 22px;
+        padding: 5px 0px 5px 0px;
         overflow: hidden;
-        font: 10px/22px 'Helvetica neue', Helvetica, Arial, Verdana, sans-serif;
-        color: #aaa;
-        text-shadow: 1px 1px 0px #eee;
+        font: 'Helvetica neue', Helvetica, Arial, Verdana, sans-serif;
         text-align: center;
     }
     
-    #gs-onlinevisitors-widget-footer a{
-        color: #555;
-        text-shadow: 1px 1px 0px #eee;
+    #gs-onlinevisitors-widget-footer a.gs-a{
+        color: #888888;
+        text-shadow: 0px 1px 0px rgba(255,255,255,0.6);
         text-decoration:none;
+        font-size: 11px;
     }
+    
+     #gs-onlinevisitors-widget-footer a span.gosquared_logo{
+     	font-weight: bold;
+     }
+     
+      #gs-onlinevisitors-widget-footer a.gs-a:hover{
+      	color: #445599;
+      }
+    
 </style>
 <div id="gs-onlinevisitors-widget-container">
     <div id="gs-onlinevisitors-widget">
@@ -140,7 +159,7 @@
                 People online
             </div>
         </div>
-        <span class="gs-ajax-loader">Loading...</span>
+        <span class="gs-ajax-loader"><img src="http://static.gosquared.com/images/plugins/ajax-loader.gif" title="Loading..."/></span>
     </div>
-    <div id="gs-onlinevisitors-widget-footer"><span>Powered by <a class="gs-a" href="http://www.gosquared.com/" target="_blank">GoSquared</a></span></div>
+    <div id="gs-onlinevisitors-widget-footer"><a class="gs-a" title="GoSquared -real-time web analytics. Respond now, not tomorrow. Learn more." href="http://www.gosquared.com/" target="_blank">Powered by <span class="gosquared_logo">GoSquared</span></a></div>
 </div>

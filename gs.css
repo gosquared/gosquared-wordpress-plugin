@@ -47,10 +47,26 @@ div.center{
     color: #555;
 }
 
+#gs-admin-settings-page div#gosquaredlogo{
+	width: 100%;
+	height: 50px;
+	background: #1E1E1E url('head_01_300x50.png') no-repeat;
+	background-position: left top;
+	border: 1px solid #000000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 1px 0px #ffffff;
+	-moz-box-shadow: 0px 1px 0px #ffffff;
+	-o-box-shadow: 0px 1px 0px #ffffff;
+	box-shadow: 0px 1px 0px #ffffff;
+}
+
 #gs-admin-settings-page h2{
     margin-top: 24px;
-    margin-bottom: 13px;
-    font-weight: normal;
+    margin-bottom: 15px;
+    font-weight: bold;
 }
 
 #gs-admin-settings-page p{
@@ -66,7 +82,7 @@ div.center{
 
 #gs-admin-settings-page .input-field .input-label{
     display: inline-block;
-    width: 160px;
+    width: 180px;
 }
 
 #gs-admin-settings-page .input-field .gs-text-input{
@@ -105,4 +121,9 @@ div.center{
     -moz-box-shadow: inset 0px 0px 10px #aaa;
     text-align: center;
     cursor: pointer;
+}
+
+#gs-admin-settings-page img.hero_preview{
+	padding-left: 20px;
+	padding-top: 20px;
 }

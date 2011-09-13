@@ -4,7 +4,7 @@ Donate link: http://www.gosquared.com/
 Tags: GoSquared, LiveStats, Real-Time, Analytics, Statistics, Real, Time
 Requires at least: 2.6
 Tested up to: 3.2.1
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 
 The official GoSquared for Wordpress plugin to integrate the GoSquared Tracking Code and GoSquared widgets into your Wordpress blog.
 
@@ -47,16 +47,16 @@ Wing us an email at http://www.gosquared.com/contact/ or check out support docum
 
 == Screenshots ==
 1. Plugin options screen.
-2. The plugin fuels detailed real-time information about your visitors
-3. Analyse detailed statistics about your website and its traffic over time
-4. Light up the world with a visual representation of your web traffic's geographical distribution
+2. The plugin fuels detailed real-time information about your visitors.
+3. Analyse detailed statistics about your website and its traffic over time.
+4. Light up the world with a visual representation of your web traffic's geographical distribution.
 
 
 == Changelog ==
 
 = 0.3.0 =
 * Re-designed admin interface.
-* Added widgets to display currents users on the site.
+* Widgets for sharing - display the number of current visitors on your site.
 
 = 0.2.3 =
 * Added option to prevent post preview pages from being tracked.

@@ -1,5 +1,6 @@
-<script type="text/javascript" >
-jQuery(document).ready( (function($) {
+<script type="text/javascript">
+(function($){
+$( function(){
 
     var WIDGET_NAME = 'gs-onlinevisitors';
     var concurrents = 0;
@@ -39,7 +40,7 @@ jQuery(document).ready( (function($) {
     }
    
     function updateDisplay() {
-        if ($('#gs-onlinevisitors-dots-wide-widget .gs-content-pane').css("display") == 'none')
+        if ($('#gs-onlinevisitors-dots-wide-widget .gs-top').css("display") == 'none')
             showContent();
         // update visitor count
         $('#gs-onlinevisitors-dots-wide-widget .gs-top .gs-visitor-count').empty();
@@ -54,8 +55,9 @@ jQuery(document).ready( (function($) {
     }
 
     function showContent() {
-        $('#gs-onlinevisitors-dots-wide-widget .gs-ajax-loading').fadeOut(500, 
-            $('#gs-onlinevisitors-dots-wide-widget .gs-content-pane').fadeIn(500));
+        $('#gs-onlinevisitors-dots-wide-widget .gs-ajax-loader').fadeOut(500) 
+        $('#gs-onlinevisitors-dots-wide-widget .gs-top').fadeIn(500);
+        $('#gs-onlinevisitors-dots-wide-widget .gs-middle').fadeIn(500);
     }
 
     fetchConcurrentsData(updateDisplay);
@@ -69,90 +71,111 @@ jQuery(document).ready( (function($) {
     }, cache_timeout);
 
 
-})(jQuery) );
+} );
+
+})(jQuery);
 </script>
+
 <style type="text/css">
+
+li#gs_onlinevisitors-3{
+	list-style: none;
+}
+
 #gs-onlinevisitors-dots-wide-widget{
     color: black;
     height: 86px;
     width: 160px;
     text-align: center;
     overflow: hidden;
-    font-family: Helvetica,Arial,'DejaVu Sans','Liberation Sans',Freesans,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: auto;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-ajax-loader{
     display: block;
     width: 100%;
-    margin-top: 33px;
-    text-shadow: 1px 1px 0px #eee;
+    margin-top: -64px;
+    text-shadow: 0px 1px 0px #eee;
     color: #333;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-content-pane{
-    display: none;
+    /*display: none;*/
     width:100%;
     height:100%;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-header{
-    border-radius: 6px 6px 8px 8px;
-    box-shadow: inset 0px 0px 25px #aaa;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
     -webkit-box-shadow: inset 0px 0px 25px #aaa; 
     -moz-box-shadow: inset 0px 0px 25px #aaa;
+    -o-box-shadow: inset 0px 0px 25px #aaa;
+    box-shadow: inset 0px 0px 25px #aaa;
     background-color: #e0e0e0;
-    border: 1px solid #aaa;
     overflow: hidden;
+    height:60px;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-top{
-    display: block;
+    display: none;
     height: 30px;
     width: 100%;
-    border-bottom: 1px solid #aaa;
-    font-size: 13px;
-    text-shadow: 1px 1px 0px #eee;
-    color: #333;
+    border-bottom: 1px solid #000000;
+    font-size: 12px;
+    font-weight: bold;
+    color: #555555;
+    text-shadow: 0px 1px 0px #ffffff;
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.8);
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-top div{
     display: inline-block;
 }
 
-#gs-onlinevisitors-dots-wide-widget .gs-top .gs-text{
-    width: 85px;
-    text-align: right;
-    padding-right:5px;
-    padding-top: 10px;
-}
-
 #gs-onlinevisitors-dots-wide-widget .gs-top .gs-visitor-count{
     font-size: 18px;
-    width: 60px;
-    text-align: center;
+    padding-left: 10px;
+    text-align: left;
+}
+
+#gs-onlinevisitors-dots-wide-widget .gs-top .gs-text{
+    width: 80px;
+    text-align: left;
+    padding-right:5px;
+    padding-left: 5px;
+    padding-top: 10px;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-footer{
     display: block;
-    height: 26px;
     width: 100%;
-    border-top: 1px solid #eee;
-    font-size: 12px;
-    text-align: right;
-    padding-right: 10px;
-    color: #aaa;
-    text-shadow: 1px 1px 0px #eee;
+    padding: 5px 0px 5px 0px;
+    overflow: hidden;
+    font: 'Helvetica neue', Helvetica, Arial, Verdana, sans-serif;
+    text-align: center;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-footer .gs-a{
-    color: #555;
-    text-shadow: 1px 1px 0px #eee;
+    color: #888888;
+    text-shadow: 0px 1px 0px rgba(255,255,255,0.6);
     text-decoration:none;
+    font-size: 11px;
+}
+
+#gs-onlinevisitors-dots-wide-widget .gs-footer .gs-a span.gosquared_logo{
+	font-weight: bold;
+}
+
+#gs-onlinevisitors-dots-wide-widget .gs-footer a.gs-a:hover{
+	color: #445599;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-middle{
-    display: block;
+    display: none;
     height: 30px;
     width: 100%;
     background-color: #1e1e1e;
@@ -164,9 +187,10 @@ jQuery(document).ready( (function($) {
     width:4px;
     height:4px;
     margin-right:7px;
-    border-radius:2px;
     -webkit-border-radius:2px;
     -moz-border-radius:2px;
+    -o-border-radius:2px;
+    border-radius:2px;
     background:#111;
     position:relative;
     z-index:1;
@@ -180,9 +204,10 @@ jQuery(document).ready( (function($) {
     z-index:2;
     overflow:hidden;
     background:#7ff8ff;
-    box-shadow:0 0 6px 0px #1affff;
-    -moz-box-shadow:0 0 6px 0px #1affff;
     -webkit-box-shadow:0 0 6px 0px #1affff;
+    -moz-box-shadow:0 0 6px 0px #1affff;
+    -o-box-shadow:0 0 6px 0px #1affff;
+    box-shadow:0 0 6px 0px #1affff;
 }
 </style>
 <div id="gs-onlinevisitors-dots-wide-widget">
@@ -210,8 +235,8 @@ jQuery(document).ready( (function($) {
             </div>
         </div>
         <div class="gs-footer">
-            Powered by <a class="gs-a" href="http://www.gosquared.com/" target="_blank">GoSquared</a>
+            <a class="gs-a" title="GoSquared -real-time web analytics. Respond now, not tomorrow. Learn more." href="http://www.gosquared.com/" target="_blank">Powered by <span class="gosquared_logo">GoSquared</span></a>
         </div>
     </div>
-    <span class="gs-ajax-loader">Loading...</span>
+    <span class="gs-ajax-loader"><img src="http://static.gosquared.com/images/plugins/ajax-loader.gif" title="Loading..."/></span>
 </div>

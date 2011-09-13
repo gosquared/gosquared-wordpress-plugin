@@ -3,7 +3,7 @@
 Plugin Name: GoSquared
 Plugin URI: http://www.gosquared.com/
 Description: The official GoSquared Wordpress plugin to load the Tracking Code for GoSquared applications
-Version: 0.3.0
+Version: 0.3.1
 License: GPL3 http://www.gnu.org/licenses/gpl.html
 Author: GoSquared
 Author URI: http://www.gosquared.com/about/
@@ -112,8 +112,10 @@ function gs_options_page() {
 
     <div id="gs-admin-settings-page">
         <br />
-	<div style="width: 100%; height: 50px; background: #1E1E1E url('<?php echo WP_PLUGIN_URL . '/gosquared-livestats/head_01_300x50.png'; ?>') no-repeat; background-position: left top; border: 1px solid #000000; -webkit-border-radius: 5px; -moz-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; -webkit-box-shadow: 0px 1px 0px #ffffff; -moz-box-shadow: 0px 1px 0px #ffffff; -o-box-shadow: 0px 1px 0px #ffffff; box-shadow: 0px 1px 0px #ffffff;" id="gosquaredlogo">
-    	</div>
+	
+	
+	<a href="http://www.gosquared.com/" title="Go to the GoSquared homepage" target="_blank"><div id="gosquaredlogo"></div></a>
+	
 	<?php
 	if (isset($_POST['gs_acct'])) {
 	    // Handle submission
@@ -199,19 +201,24 @@ function gs_options_page() {
 		Go to you <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'>Wordpress Widget settings</a> to enable GoSquared widgets.
 	    </p>
 	    <p>
-		Ensure you have entered both your Site Token and API Key in the fields below first.    
+		Ensure you <b>enter both your Site Token and API Key</b> in the fields below first.    
 	    </p>
+	    
+	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_01_150x160.png" align="top" alt="GoSquared Widget 01" class="hero_preview"/></a>
+	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_02_150x160.png" align="top" alt="GoSquared Widget 02" class="hero_preview"/></a>
+	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_03_170x160.png" align="top" alt="GoSquared Widget 03" class="hero_preview"/></a>
+	    
 	</div>
 	
 	<form name="gs-options" action="" method = "post">
 
 	    <h2>Site Token - Start tracking "<?php echo get_bloginfo('name'); ?>" with GoSquared.</h2>
-	    <p>Your Site Token enables GoSquared to monitor your Wordpress site's traffic.</p>
-	    <p>If you haven't yet registered your Site with GoSquared, <a href="https://www.gosquared.com/join/" target="_blank">Sign up for free</a>.</p>
+	   
+	   	<p>Your Site Token enables GoSquared to monitor your Wordpress site's traffic. <a href="https://www.gosquared.com/join/" title="Sign up to GoSquared for free to start monitoring your site in real-time" target="_blank">Sign up for free</a> to register your site with GoSquared.</p>
 
 
 	    <div class="input-field">
-		<span class="input-label">Your GoSquared site token </span>
+		<span class="input-label">Your GoSquared Site Token </span>
 		<input class="gs-text-input" type="text" name="gs_acct" value = "<?= $default_text ?>" 
 		       onclick="if(this.value=='<?= $default_text ?>')this.value=''" 
 		       onblur="if(this.value=='')this.value='<?= $default_text ?>'"/>&nbsp;
@@ -219,13 +226,11 @@ function gs_options_page() {
 	    </div>
 
 		<h2>API Key - Share your stats via GoSquared Widgets.</h2>
-		<p>
-		    Your API Key enables you to share your stats with your blog visitors via Widgets.<br />
-		    Widgets will not work without an API Key, but traffic monitoring will.
-		</p>  
+		
+		<p>Your API Key enables you to share your stats with your blog visitors via Widgets. Widgets will not work without an API Key.</p>  
 
 		<div class="input-field">
-		<span class="input-label">Your GoSquared API key </span>
+		<span class="input-label">Your GoSquared API Key </span>
 		<input class="gs-text-input" type="text" name="gs_apiKey" value = "<?= $default_apiKey ?>"
 		       onclick="if(this.value=='<?= $default_apiKey ?>')this.value=''"
 		       onblur="if(this.value=='')this.value='<?= $default_apiKey ?>'"/>&nbsp;
@@ -274,7 +279,7 @@ function gs_options_page() {
 	    echo 'checked="checked"'; ?>/>60s</td>
 		</tr>
 	    </table>
-	    <input type="submit" value="Save Settings" class="gs-button" />
+	    <input type="submit" value="Save Settings" class="button-primary" />
         </form>
     </div>
 
@@ -412,21 +417,21 @@ class WP_Widget_GS_OnlineVisitors extends WP_Widget {
 	    }
 	</style>
 	<label for="gs-widget-option-1" class="gs-widget-label">
-	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/gs-widget-1.jpg" align="top" alt="style 1"/></div>
+	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_01_150x160.png" align="top" alt="GoSquared Widget 01"/></div>
 	    <input type="radio" id="gs-widget-option-1" name="<?php echo $this->get_field_name('style'); ?>" 
 	<?php if (1 == $wstyle)
 	    echo 'checked'; ?> value="1" />
 	</label>
 
 	<label for="gs-widget-option-2" class="gs-widget-label">
-	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/gs-widget-2.jpg" align="top" alt="style 2"/></div>
+	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_02_150x160.png" align="top" alt="GoSquared Widget 02"/></div>
 	    <input type="radio" id="gs-widget-option-2" name="<?php echo $this->get_field_name('style'); ?>" 
 	<?php if (2 == $wstyle)
 	    echo 'checked'; ?> value="2" />
 	</label>
 
 	<label for="gs-widget-option-3" class="gs-widget-label">
-	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/gs-widget-3.jpg" align="top" alt="style 3"/></div>
+	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_03_170x160.png" align="top" alt="GoSquared Widget 03"/></div>
 	    <input type="radio" id="gs-widget-option-3" name="<?php echo $this->get_field_name('style'); ?>"
 	<?php if (3 == $wstyle)
 	    echo 'checked'; ?> value="3" />

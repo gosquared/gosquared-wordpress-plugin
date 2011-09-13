@@ -1,5 +1,6 @@
-<script type="text/javascript" >
-jQuery(document).ready( (function($) {
+<script type="text/javascript">
+(function($){
+$( function(){
 
     var WIDGET_NAME = 'gs-onlinevisitors';
     var concurrents = 0;
@@ -39,7 +40,7 @@ jQuery(document).ready( (function($) {
     }
    
     function updateDisplay() {
-        if ($('#gs-onlinevisitors-dots-wide-widget .gs-content-pane').css("display") == 'none')
+        if ($('#gs-onlinevisitors-dots-wide-widget .gs-top').css("display") == 'none')
             showContent();
         // update visitor count
         $('#gs-onlinevisitors-dots-wide-widget .gs-top .gs-visitor-count').empty();
@@ -54,8 +55,9 @@ jQuery(document).ready( (function($) {
     }
 
     function showContent() {
-        $('#gs-onlinevisitors-dots-wide-widget .gs-ajax-loading').fadeOut(500, 
-            $('#gs-onlinevisitors-dots-wide-widget .gs-content-pane').fadeIn(500));
+        $('#gs-onlinevisitors-dots-wide-widget .gs-ajax-loader').fadeOut(500) 
+        $('#gs-onlinevisitors-dots-wide-widget .gs-top').fadeIn(500);
+        $('#gs-onlinevisitors-dots-wide-widget .gs-middle').fadeIn(500);
     }
 
     fetchConcurrentsData(updateDisplay);
@@ -69,7 +71,9 @@ jQuery(document).ready( (function($) {
     }, cache_timeout);
 
 
-})(jQuery) );
+} );
+
+})(jQuery);
 </script>
 
 <style type="text/css">
@@ -91,13 +95,13 @@ li#gs_onlinevisitors-3{
 #gs-onlinevisitors-dots-wide-widget .gs-ajax-loader{
     display: block;
     width: 100%;
-    margin-top: 33px;
+    margin-top: -64px;
     text-shadow: 0px 1px 0px #eee;
     color: #333;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-content-pane{
-    display: none;
+    /*display: none;*/
     width:100%;
     height:100%;
 }
@@ -113,10 +117,11 @@ li#gs_onlinevisitors-3{
     box-shadow: inset 0px 0px 25px #aaa;
     background-color: #e0e0e0;
     overflow: hidden;
+    height:60px;
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-top{
-    display: block;
+    display: none;
     height: 30px;
     width: 100%;
     border-bottom: 1px solid #000000;
@@ -133,7 +138,6 @@ li#gs_onlinevisitors-3{
 
 #gs-onlinevisitors-dots-wide-widget .gs-top .gs-visitor-count{
     font-size: 18px;
-    width: 50px;
     padding-left: 10px;
     text-align: left;
 }
@@ -171,7 +175,7 @@ li#gs_onlinevisitors-3{
 }
 
 #gs-onlinevisitors-dots-wide-widget .gs-middle{
-    display: block;
+    display: none;
     height: 30px;
     width: 100%;
     background-color: #1e1e1e;

@@ -126,7 +126,7 @@ function gs_options_page() {
 	    $trackUser = isset($_POST['gs_trackUser']) ? $_POST['gs_trackUser'] : 'Username';
 	    $cacheTimeout = isset($_POST['gs_cacheTimeout']) ? $_POST['gs_cacheTimeout'] : 30;
 	    $valid_acct = preg_match('/^GSN-[0-9]{6,7}-[A-Z]{1}$/', $acct);
-	    $valid_apiKey = preg_match('/^[0-9A-Z]{16}$/', $apiKey);
+	    $valid_apiKey = $apiKey == "" ? 1 : preg_match('/^[0-9A-Z]{16}$/', $apiKey);
 	    if ($valid_acct && $valid_apiKey) {
 		update_option('gstc_acct', $acct);
 		update_option('gstc_apiKey', $apiKey);

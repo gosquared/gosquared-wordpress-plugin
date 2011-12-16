@@ -108,6 +108,8 @@ function gs_options_page() {
 		$msg = "";
 		if (!$valid_acct)
 		    $msg .= '<p>Site token not of valid format. Must be like GSN-000000-X</p>';
+		if (!$valid_apiKey)
+		    $msg .= '<p>API key not of valid format. Must be a 16 characters long and only contains capital letters and numbers</p>';
 		if(!$msg) $msg = 'An error occurred';
 		gs_fail($msg);
 	    }

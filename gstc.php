@@ -3,7 +3,7 @@
 Plugin Name: GoSquared
 Plugin URI: http://www.gosquared.com/
 Description: The official GoSquared Wordpress plugin to load the Tracking Code for GoSquared applications
-Version: 0.3.1
+Version: 0.3.2
 License: GPL3 http://www.gnu.org/licenses/gpl.html
 Author: GoSquared
 Author URI: http://www.gosquared.com/about/
@@ -49,21 +49,6 @@ function gs_init() {
     wp_register_style('gs_style', $style_url);
 }
 
-//function gs_activate(){
-//    //Get the $wpdb global
-//   global $wpdb;
-//   //Set a default result
-//   $result = false;
-//   //Install table, if it doesnt exist already
-//   $sql = sprintf('CREATE TABLE IF NOT EXISTS `%sgs_meta` (
-//      `meta_id` bigint(20) UNSIGNED NOT NULL auto_increment,
-//      `meta_key` varchar(255),
-//      `meta_value` longtext,
-//      PRIMARY KEY (`meta_id`)
-//   )',$wpdb->prefix);
-//   $result = $wpdb->query($sql);
-//}
-
 function gs_options() {
     $page = add_options_page('GoSquared', 'GoSquared', 'manage_options', 'gs-livestats', 'gs_options_page');
     /* Using registered $page handle to hook stylesheet loading */
@@ -85,22 +70,6 @@ function gs_fail($message) {
 function gs_warn($message) {
     echo '<div class="center"><div class="message_wrapper"><div class="gs_warn">' . $message . '</div></div></div>';
 }
-
-/*
-  function is_tracker_installed() {
-  $list_sites_raw = file_get_contents(WP_PLUGIN_URL.'/gosquared/apiproxy.php?widget=gs-tracking-check');
-  $list_sites_obj = json_decode($list_sites_raw,true);
-  $site_token = get_option("gstc_acct");
-  $result = false;
-  foreach ($list_sites_obj as $site) {
-  if (strcmp($site['token'], $site_token) == 0) {
-  if ($site["tracker_installed"] == 1)
-  $result = true;
-  }
-  }
-  return $result;
-  }
- */
 
 function gs_options_page() {
     global $style_file, $style_url;
@@ -139,8 +108,6 @@ function gs_options_page() {
 		$msg = "";
 		if (!$valid_acct)
 		    $msg .= '<p>Site token not of valid format. Must be like GSN-000000-X</p>';
-		if (!$valid_apiKey)
-		    $msg .= '<p>API key not of valid format. Must be a 16 characters long and only contains capital letters and numbers</p>';
 		if(!$msg) $msg = 'An error occurred';
 		gs_fail($msg);
 	    }

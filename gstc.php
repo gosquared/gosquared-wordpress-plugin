@@ -173,9 +173,9 @@ function gs_options_page() {
 		Ensure you <b>enter both your Site Token and API Key</b> in the fields below first.    
 	    </p>
 	    
-	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_01_150x160.png" align="top" alt="GoSquared Widget 01" class="hero_preview"/></a>
-	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_02_150x160.png" align="top" alt="GoSquared Widget 02" class="hero_preview"/></a>
-	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_03_170x160.png" align="top" alt="GoSquared Widget 03" class="hero_preview"/></a>
+	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<?php echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_01_150x160.png" align="top" alt="GoSquared Widget 01" class="hero_preview"/></a>
+	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<?php echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_02_150x160.png" align="top" alt="GoSquared Widget 02" class="hero_preview"/></a>
+	    <a href='<?php echo site_url(); ?>/wp-admin/widgets.php'><img src="<?php echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_03_170x160.png" align="top" alt="GoSquared Widget 03" class="hero_preview"/></a>
 	    
 	</div>
 	
@@ -188,9 +188,9 @@ function gs_options_page() {
 
 	    <div class="input-field">
 		<span class="input-label">Your GoSquared Site Token </span>
-		<input class="gs-text-input" type="text" name="gs_acct" value = "<?= $default_text ?>" 
-		       onclick="if(this.value=='<?= $default_text ?>')this.value=''" 
-		       onblur="if(this.value=='')this.value='<?= $default_text ?>'"/>&nbsp;
+		<input class="gs-text-input" type="text" name="gs_acct" value = "<?php echo $default_text ?>" 
+		       onclick="if(this.value=='<?php echo $default_text ?>')this.value=''" 
+		       onblur="if(this.value=='')this.value='<?php $default_text ?>'"/>&nbsp;
 		<a href="http://www.gosquared.com/support/wiki/faqs#faq-site-token" target="_blank">What's this?</a>
 	    </div>
 
@@ -200,9 +200,9 @@ function gs_options_page() {
 
 		<div class="input-field">
 		<span class="input-label">Your GoSquared API Key </span>
-		<input class="gs-text-input" type="text" name="gs_apiKey" value = "<?= $default_apiKey ?>"
-		       onclick="if(this.value=='<?= $default_apiKey ?>')this.value=''"
-		       onblur="if(this.value=='')this.value='<?= $default_apiKey ?>'"/>&nbsp;
+		<input class="gs-text-input" type="text" name="gs_apiKey" value = "<?php echo $default_apiKey ?>"
+		       onclick="if(this.value=='<?php echo $default_apiKey ?>')this.value=''"
+		       onblur="if(this.value=='')this.value='<?php echo $default_apiKey ?>'"/>&nbsp;
 		<a href="http://www.gosquared.com/support/wiki/faqs#faq-API-key" target="_blank">What's this?</a>
 		</div>
 
@@ -386,21 +386,21 @@ class WP_Widget_GS_OnlineVisitors extends WP_Widget {
 	    }
 	</style>
 	<label for="gs-widget-option-1" class="gs-widget-label">
-	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_01_150x160.png" align="top" alt="GoSquared Widget 01"/></div>
+	    <div class="gs-img-container"><img src="<?php echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_01_150x160.png" align="top" alt="GoSquared Widget 01"/></div>
 	    <input type="radio" id="gs-widget-option-1" name="<?php echo $this->get_field_name('style'); ?>" 
 	<?php if (1 == $wstyle)
 	    echo 'checked'; ?> value="1" />
 	</label>
 
 	<label for="gs-widget-option-2" class="gs-widget-label">
-	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_02_150x160.png" align="top" alt="GoSquared Widget 02"/></div>
+	    <div class="gs-img-container"><img src="<?php echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_02_150x160.png" align="top" alt="GoSquared Widget 02"/></div>
 	    <input type="radio" id="gs-widget-option-2" name="<?php echo $this->get_field_name('style'); ?>" 
 	<?php if (2 == $wstyle)
 	    echo 'checked'; ?> value="2" />
 	</label>
 
 	<label for="gs-widget-option-3" class="gs-widget-label">
-	    <div class="gs-img-container"><img src="<? echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_03_170x160.png" align="top" alt="GoSquared Widget 03"/></div>
+	    <div class="gs-img-container"><img src="<?php echo WP_PLUGIN_URL; ?>/gosquared-livestats/wordpress_plugin_03_170x160.png" align="top" alt="GoSquared Widget 03"/></div>
 	    <input type="radio" id="gs-widget-option-3" name="<?php echo $this->get_field_name('style'); ?>"
 	<?php if (3 == $wstyle)
 	    echo 'checked'; ?> value="3" />

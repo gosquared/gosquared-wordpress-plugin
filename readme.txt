@@ -19,7 +19,7 @@ To use GoSquared on your blog, simply download this plugin and sign up for a fre
 == Installation ==
 
 1. Sign up to GoSquared for a free trial at https://www.gosquared.com/join/
-2. Upload the directory called `gosquared-livestats` to `/wp-content/plugins/`
+2. Upload the directory called `gosquared-wordpress-plugin` to `/wp-content/plugins/`
 4. Go to the plugin's admin page (Settings -> GoSquared on the left sidebar) and enter your site token, which can be found in the tracking code tab in GoSquared Settings at http://www.gosquared.com/settings/
 
 == Frequently Asked Questions ==

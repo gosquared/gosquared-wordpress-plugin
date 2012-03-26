@@ -8,13 +8,20 @@ $(function() {
     var fetchSuccess;
 
     function fetchConcurrentsData(callback) {
-        $.getJSON(plugin_proxy_url+WIDGET_NAME, function(data) {
-            // get user stats
-            concurrents = data.concurrents;
-            range_max = data.range_max;
-            fetchSuccess = true;
-            if (callback) callback();
-        });
+        jQuery.post(
+                ajaxurl,
+                {
+                    'action':'get_widget_data',
+                    'data':'gs-onlinevisitors'
+                },
+                function(response){
+                    var data = jQuery.parseJSON(response);
+                    concurrents = data.concurrents;
+                    range_max = data.range_max;
+                    fetchSuccess = true;
+                    if (callback) callback();
+                }
+        );
     }
    
     function updateDisplay() {

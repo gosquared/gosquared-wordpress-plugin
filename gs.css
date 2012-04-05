@@ -28,8 +28,8 @@ div.gs_fail{
 	background-color: #ff3c42;
 	border: 1px solid #771122;
 	color: #fff;
-}
 
+}
 div.gs_warn{
     background-color:#fedb7b;
     border: 1px solid;
@@ -103,7 +103,7 @@ div.center{
 }
 
 #gs-admin-settings-page td.wide{
-    width: 100px;
+    width: 120px;
 }
 
 #gs-admin-settings-page td.label{

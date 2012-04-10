@@ -36,7 +36,7 @@
         if (!$cacheTimeout)
             $cacheTimeout = 30;
         ?>
-
+<? if (class_exists("WP_Widget")) { ?>
         <h2>GoSquared Widgets - Share your stats with your audience.</h2>
         <?php
 
@@ -74,6 +74,8 @@
 
     </div>
 
+<?php } ?>
+
     <form name="gs-options" action="" method = "post">
 
         <h2>Site Token - Start tracking "<?php echo get_bloginfo('name'); ?>" with GoSquared.</h2>
@@ -87,7 +89,7 @@
                    onblur="if(this.value=='')this.value='<?php $default_text ?>'"/>&nbsp;
             <a href="http://www.gosquared.com/support/wiki/faqs#faq-site-token" target="_blank">What's this?</a>
         </div>
-
+<?php if (class_exists("WP_Widget")) { ?>
         <h2>API Key - Share your stats via GoSquared Widgets.</h2>
         <p>Your API Key enables you to share your stats with your blog visitors via Widgets. Widgets will not work
             without an API Key.</p>
@@ -99,6 +101,7 @@
                    onblur="if(this.value=='')this.value='<?php echo $default_apiKey ?>'"/>&nbsp;
             <a href="http://www.gosquared.com/support/wiki/faqs#faq-API-key" target="_blank">What's this?</a>
         </div>
+<?php } ?>
 
         <h2>Advanced Settings</h2>
         <table class="gs-settings">
@@ -127,6 +130,7 @@
                 <td class="wide"><input type="radio" name="gs_trackUser" value="DisplayName" id="trackUser" <?php if ($trackUser == 'DisplayName')
                     echo 'checked="checked" '; ?>/> Display Name</td>
             </tr>
+<?php if (class_exists("WP_Widget")) { ?>
             <tr>
                 <td class="label">Set widget cache timeout</td>
                 <td><input type="radio" name="gs_cacheTimeout" value="5"
@@ -149,6 +153,7 @@
                     echo 'checked="checked"'; ?>/>60s
                 </td>
             </tr>
+<?php } ?>
         </table>
         <input type="submit" value="Save Settings" class="button-primary" />
     </form>

@@ -149,6 +149,7 @@ function get_appropriate_user_detail($current_user) {
  * register_widget('My_Widget');
  * ********************************************************************** */
 
+if (class_exists("WP_Widget")) {
 
 // widgets go here
 add_action('wp_enqueue_scripts', 'gs_enqueue_scripts');
@@ -268,6 +269,8 @@ class WP_Widget_GS_OnlineVisitors extends WP_Widget
     }
 
 }
+
+} // end if (class_exists(..))
 
 include 'GS_GetEvents.php';
 ?>

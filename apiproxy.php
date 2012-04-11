@@ -1,6 +1,4 @@
 <?php
-ini_set("display_errors", "On");
-
 define('GS_PLUGIN_DIR', basename(dirname(__FILE__)));
 
 define('API_KEY', get_option('gstc_apiKey'));

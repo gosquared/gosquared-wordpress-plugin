@@ -8,13 +8,20 @@ $( function() {
         var fetchSuccess;
     
         function fetchConcurrentsData(callback) {
-            $.getJSON(plugin_proxy_url+WIDGET_NAME, function(data) {
-                // get user stats
-                concurrents = data.concurrents;
-                range_max = data.range_max;
-                fetchSuccess = true;
-                if (callback) callback();
-            });
+            jQuery.post(
+               ajaxurl,
+               {
+                  'action':'get_widget_data',
+                  'data':'gs-onlinevisitors'
+               },
+               function(response){
+                   var data = jQuery.parseJSON(response);
+                  concurrents = data.concurrents;
+                  range_max = data.range_max;
+                  fetchSuccess = true;
+                  if (callback) callback();
+               }
+            );
         }
        
         function updateDisplay() {
@@ -108,7 +115,7 @@ $( function() {
     #gs-onlinevisitors-widget .gs-top .gs-visitor-count{
         font-size: 36px;
    		position: relative;
-    	top: 22px;
+    	top: 34px;
     	font-weight: 200;
     	text-shadow: 0px 1px 0px #ffffff;
     	text-shadow: 0px 1px 0px rgba(255,255,255,0.8);

@@ -36,7 +36,7 @@
         if (!$cacheTimeout)
             $cacheTimeout = 30;
         ?>
-<? if (class_exists("WP_Widget")) { ?>
+<?php if (class_exists("WP_Widget")) { ?>
         <h2>GoSquared Widgets - Share your stats with your audience.</h2>
         <?php
 

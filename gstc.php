@@ -3,7 +3,7 @@
 Plugin Name: GoSquared Wordpress Plugin
 Plugin URI: http://www.gosquared.com/
 Description: The official GoSquared Wordpress plugin to load the Tracking Code for GoSquared applications on your Wordress-powered site
-Version: 0.3.3
+Version: 0.3.4
 License: GPL3 http://www.gnu.org/licenses/gpl.html
 Author: GoSquared
 Author URI: http://www.gosquared.com/about/

@@ -1,4 +1,4 @@
-<?
+<?php
 
 add_option('gstc_acct');
 add_option('gstc_trackAdmin');

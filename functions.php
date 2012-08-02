@@ -20,6 +20,10 @@
         
         $json = $json->pages;
         unset($json->cardinality);
+        
+        if(count($json) > 5) {
+            $json = array_slice($json, 0, 5);
+        }
 
         echo '<ul class="top-content">';
         echo '<li class="heading"><h2>Popular posts</h2></li>';
@@ -36,6 +40,7 @@
         }
         
         echo '</ul>';
+        echo '<small><a href="http://gosquared.com">Powered by GoSquared</a></small>';
         
         if(!$noScript) {
             echo '<script>'; include_once DIR . 'assets/content.js'; echo '</script>';

@@ -69,7 +69,7 @@ h1 {
     height: 25px;
     
     text-indent: -999em;
-    background: url('../wp-content/plugins/gosquared/assets/logo.png');
+    background: url('{dir}/assets/logo.png');
     
     float: left;
     margin-right: 20px;

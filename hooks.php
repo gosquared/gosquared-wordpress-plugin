@@ -38,7 +38,13 @@
         tracking_code();
         
         //  Spit the stylesheet out
-        echo '<style>'; include_once DIR . 'assets/style.css'; echo '</style>';
+        echo '<style>';
+            ob_start();
+            include_once DIR . 'assets/style.css';
+            $content = ob_get_clean();
+            
+            echo str_replace('{dir}', substr(plugin_dir_url(__FILE__), 0, -1), $content);
+        echo '</style>';
         
         //  Handle post
         if(isset($_POST['submit'])) {

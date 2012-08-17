@@ -3,8 +3,8 @@ Contributors: GoSquared
 Donate link: http://www.gosquared.com/
 Tags: GoSquared, LiveStats, Real-Time, Analytics, Statistics, Real, Time
 Requires at least: 2.6
-Tested up to: 3.3.1
-Stable tag: 0.3.5
+Tested up to: 3.4.1
+Stable tag: 0.4
 
 The official GoSquared for Wordpress plugin to integrate the GoSquared Tracking Code and GoSquared widgets into your Wordpress blog.
 
@@ -19,7 +19,7 @@ To use GoSquared on your blog, simply download this plugin and sign up for a fre
 == Installation ==
 
 1. Sign up to GoSquared for a free trial at https://www.gosquared.com/join/
-2. Upload the directory called `gosquared-livestats` to `/wp-content/plugins/`
+2. Upload the directory called `gosquared` to `/wp-content/plugins/`
 4. Go to the plugin's admin page (Settings -> GoSquared on the left sidebar) and enter your site token, which can be found in the tracking code tab in GoSquared Settings at http://www.gosquared.com/settings/
 
 == Frequently Asked Questions ==
@@ -53,6 +53,11 @@ Wing us an email at http://www.gosquared.com/contact/ or check out support docum
 
 
 == Changelog ==
+
+= 0.4 =
+* Complete rewrite of the backend.
+* Added theming functions (live_visitors() and top_content() so far).
+* Redesigned the admin interface. Old widgets have been removed, and looks cleaner now.
 
 = 0.3.5 =
 * Bugfix: use long tags.

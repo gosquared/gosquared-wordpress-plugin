@@ -1,5 +1,5 @@
 (function() {
-    var ready = function() {
+    var ready = function($) {
         var target = $('.top-content-widget');
         var grab = function() {
             $.get('?top_content', function(data) {
@@ -20,7 +20,7 @@
     //  Only works with jQuery, unfortunately
     if(window.jQuery) {
         hasjQuery = true;
-        ready.call(window.jQuery);
+        ready(window.jQuery);
     } else {
         var w = function() {
             if(hasjQuery) {
@@ -29,7 +29,7 @@
             } else {
                 if(window.jQuery) {
                     hasjQuery = true;
-                    ready.call(window.jQuery);
+                    ready(window.jQuery);
                 }
             }
         }

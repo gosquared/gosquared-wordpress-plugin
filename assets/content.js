@@ -2,7 +2,7 @@
     var ready = function() {
         var target = $('.top-content-widget');
         var grab = function() {
-            $.get('?top_content', function(data) {
+            $.get('?grab=top_content', function(data) {
                 if(data && data.indexOf('li') !== -1) {
                     target.replaceWith(data);
                 }

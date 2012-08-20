@@ -3,7 +3,7 @@
 //  Add the live counter
     function live_visitors() {
         //  Add our script
-        echo '<script>'; include_once DIR . 'assets/live.js.php'; echo '</script>';
+        echo '<script>'; include_once DIR . 'assets/live.js'; echo '</script>';
         
         //  And add the element that spits it out
         echo '<span id="live-visitors"><b>1</b> people online</span>';
@@ -11,9 +11,9 @@
     
 //  Get the most popular pages
     function top_content($noScript = false, $blogOnly = true) {
-        $url = 'https://api.gosquared.com/pages.json?api_key=' . get_option('gs_api') . '&site_token=' . get_option('gs_acct');
+        $url = get_bloginfo('url') . '?grab=top_content';
         $json = json_decode(file_get_contents($url));
-
+        
         if(!$json->pages) {
             return;
         }
@@ -80,7 +80,23 @@
         return parse_url($url, PHP_URL_PATH);
     }
     
-//  show the top content widget
+//  Handle grabbing of files
+    if(isset($_GET['grab'])) {
+        $api = get_option('gs_api');
+        $site = get_option('gs_acct');
+        
+        $mode = $_GET['grab'];
+        $url = false;
+        
+        if($mode == 'top_content') $url = 'https://api.gosquared.com/pages.json?api_key=' . $api . '&site_token=' . $site . '&callback=' . $_GET['callback'];
+        if($mode == 'live_visitors') $url = 'https://api.gosquared.com/overview.json?api_key=' . $api . '&site_token=' . $site . '&callback=' . $_GET['callback'];
+        
+        header('content-type: text/javascript');
+        include_once 'assets/grab.php';
+        exit;
+    }
+    
     if(isset($_GET['top_content'])) {
-        top_content(true); exit;
+        top_content(true);
+        exit;
     }

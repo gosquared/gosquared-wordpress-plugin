@@ -2,7 +2,7 @@
     $.addEventListener && $.addEventListener('DOMContentLoaded', function() {
     
         var target = $.getElementById('live-visitors'),
-            endpoint = 'https://api.gosquared.com/overview.json?api_key=<?php echo get_option('gs_api'); ?>&site_token=<?php echo get_option('gs_acct'); ?>';
+            endpoint = '?grab=live_visitors';
                         
         var fetch = function(callback) {
             var now = +(new Date).getTime();

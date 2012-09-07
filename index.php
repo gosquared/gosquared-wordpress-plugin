@@ -13,7 +13,7 @@
     define('DIR', dirname(__FILE__) . '/');
 
 //  And our custom theming functions go here.
-    include_once DIR . 'functions.php';
+//  include_once DIR . 'functions.php';
         
 //  Include another file
     include_once DIR . 'hooks.php';

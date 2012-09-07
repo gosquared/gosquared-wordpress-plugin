@@ -42,10 +42,34 @@
         $json = $json->pages;
         unset($json->cardinality);
         
-        if(count($json) > 5) {
-            $json = array_slice($json, 0, 5);
-        }
+        $target = array();
 
+        if($blogOnly) {
+            foreach($json as $url => $data) {
+            
+                $base = url_path(squared_url());
+                
+                if(strpos($url, $base) !== false and strpos($url, 'wp-admin') === false) {
+                    $target[$url] = $data;
+                }
+            }
+        }
+        
+        $json = (object) $target;
+        
+        if(count((array) $json) > 5) {
+            $json = (object) array_slice((array) $json, 0, 5);
+        }
+        
+        //  And echo it out
+        echo '<div class="top-content-widget">';
+        
+        //  This should never happen (since you're visiting the page), but just in case...
+        if(!$json) {
+            echo '<span class="no-content">No content to show.</span></div>';
+            return;
+        }
+        
         echo '<ul class="top-content">';
         echo '<li class="heading"><h2>Popular posts</h2></li>';
         
@@ -62,6 +86,7 @@
         
         echo '</ul>';
         echo '<small><a href="http://gosquared.com">Powered by GoSquared</a></small>';
+        echo '<div>';
         
         if(!$noScript) {
             echo '<script>'; include_once DIR . 'assets/content.js'; echo '</script>';
@@ -72,7 +97,11 @@
         return preg_replace('/(.*)(:[0-9]+?)\/(.*)/', '\\1/\\3', get_bloginfo('url'));
     }
     
-//  show the top content widget
+    function url_path($url) {
+        return parse_url($url, PHP_URL_PATH);
+    }
+    
+//  Handle grabbing of files
     if(isset($_GET['top_content'])) {
         top_content(true); exit;
     }

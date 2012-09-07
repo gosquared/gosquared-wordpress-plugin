@@ -3,7 +3,7 @@
     
         var target = $.getElementById('live-visitors'),
             endpoint = '?live_visitors';
-                        
+
         var fetch = function(callback) {
             var now = +(new Date).getTime();
             var fn = 'callback' + now;

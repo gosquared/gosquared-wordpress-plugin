@@ -3,7 +3,7 @@
     Plugin Name:    GoSquared
     Plugin URI:     http://gosquared.com
     Description:    The official WordPress plugin for GoSquared.
-    Version:        0.4
+    Version:        0.4.2
     License:        GPL3 http://www.gnu.org/licenses/gpl.html
     Author:         GoSquared
     Author URI:     http://www.gosquared.com/about/

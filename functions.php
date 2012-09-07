@@ -2,14 +2,12 @@
 
     function request($url, $decode = true) {
         $now = time();
-        $file = preg_replace('/(\?|&)callback=.*(\?|&|$)/', '', $url);
+        $file = preg_replace('/(\?|&)callback=.*(\?|&|\$)/', '', $url);
         $file = preg_replace('/[^A-Za-z0-9]/', '', $file);
         $file = str_replace('httpsapigosquaredcom', '', $file);
         
         $modified = get_option('c_' . $file . '_m');
         $expiry = $modified + 3; // 3 sec
-        
-        var_dump($file, $url);
         
         //  grab a new copy
         if($now > $expiry) {
@@ -39,8 +37,6 @@
         $url = 'https://api.gosquared.com/pages.json?api_key=' . get_option('gs_api') . '&site_token=' . get_option('gs_acct');
         $json = request($url);
         
-        var_dump($json);
-
         if(!$json->pages) {
             return;
         }

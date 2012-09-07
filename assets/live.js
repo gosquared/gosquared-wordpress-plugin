@@ -2,8 +2,8 @@
     $.addEventListener && $.addEventListener('DOMContentLoaded', function() {
     
         var target = $.getElementById('live-visitors'),
-            endpoint = '?grab=live_visitors';
-                        
+            endpoint = '?live_visitors';
+
         var fetch = function(callback) {
             var now = +(new Date).getTime();
             var fn = 'callback' + now;

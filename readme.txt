@@ -4,7 +4,7 @@ Donate link: http://www.gosquared.com/
 Tags: GoSquared, LiveStats, Real-Time, Analytics, Statistics, Real, Time
 Requires at least: 2.6
 Tested up to: 3.4.1
-Stable tag: 0.4
+Stable tag: 0.4.1
 
 The official GoSquared for Wordpress plugin to integrate the GoSquared Tracking Code and GoSquared widgets into your Wordpress blog.
 

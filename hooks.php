@@ -1,7 +1,7 @@
 <?php
 
 //  Set some options
-    $options = array(
+    $gs_options = array(
         'gs_acct' => 'Your GoSquared Site Token. Get it from your <a href="https://www.gosquared.com/home/developer">developer settings</a>.',
         'gs_api'  => 'Your GoSquared API Key. Get it from your <a href="https://www.gosquared.com/home/developer">developer settings</a>.'
     );
@@ -10,7 +10,7 @@
     $placeholders = array('gs_acct' => 'GSN-000000-Z', 'gs_api' => 'XXXXXXXXXXXXXXXX');
     
 //  Loop the options and add to WP
-    foreach($options as $key => $value) {
+    foreach($gs_options as $key => $value) {
         add_option($key);
     }
     
@@ -30,7 +30,7 @@
             wp_die(__('You do not have sufficient permissions to access this page.'));
         }
     
-        global $options, $placeholders, $post, $errors;
+        global $gs_options, $placeholders, $post, $errors;
         
         $path = DIR . 'assets/options.php';
         
@@ -68,11 +68,11 @@
     
 //  Handle the post updating
     function handle_post() {
-        global $options, $post, $errors;
+        global $gs_options, $post, $errors;
         $post = array();
         $errors = array();
         
-        foreach($options as $key => $discard) {
+        foreach($gs_options as $key => $discard) {
             $post[$key] = strip_tags(filter_input(INPUT_POST, $key, FILTER_SANITIZE_STRING));
         }
         
@@ -90,7 +90,7 @@
         
         //  If there's no errors, go nuts and add it to the DB
         if(empty($errors)) {
-            foreach($options as $key => $discard) {
+            foreach($gs_options as $key => $discard) {
                 update_option($key, $post[$key]);
             }
         }

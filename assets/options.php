@@ -16,7 +16,7 @@
 <?php endif; ?>
 
 <form action="" method="post">
-    <?php foreach($options as $value => $description): ?>
+    <?php foreach($gs_options as $value => $description): ?>
     <p>
         <label for="option-<?php echo $value; ?>"><?php echo preg_replace('^\..*^', '', str_replace('Your GoSquared', '', $description)); ?>:</label>
         <input id="<?php echo $value; ?>" name="<?php echo $value; ?>" placeholder="<?php echo isset($placeholders[$value]) ? $placeholders[$value] : ''; ?>" value="<?php echo isset($post[$value]) ? $post[$value] : get_option($value); ?>">

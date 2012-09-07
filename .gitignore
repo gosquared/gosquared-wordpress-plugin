@@ -1,2 +1,4 @@
 apicache/*
 !apicache/README
+*.esproj
+.DS_Store

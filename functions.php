@@ -1,5 +1,26 @@
 <?php
 
+    function request($url, $decode = true) {
+        $now = time();
+        $file = preg_replace('/[^A-Za-z0-9]/', '', $url);
+        $file = str_replace('httpsapigosquaredcom', '', $file);
+        
+        $modified = get_option('c_' . $file . '_m');
+        $expiry = $modified + 3; // 3 sec
+        
+        //  grab a new copy
+        if($now > $expiry) {
+            $content = file_get_contents($url);
+            
+            update_option('c_' . $file, $content);
+            update_option('c_' . $file . '_m', strval($now));
+        } else {
+            $content = get_option('c_' . $file);
+        }
+        
+        return $decode ? json_decode($content) : $content;
+    }
+
 //  Add the live counter
     function live_visitors() {
         //  Add our script
@@ -10,10 +31,10 @@
     }
     
 //  Get the most popular pages
-    function top_content($noScript = false, $blogOnly = true) {
-        $url = get_bloginfo('url') . '?grab=top_content';
-        $json = json_decode(file_get_contents($url));
-        
+    function top_content($noScript = false) {
+        $url = 'https://api.gosquared.com/pages.json?api_key=' . get_option('gs_api') . '&site_token=' . get_option('gs_acct');
+        $json = request($url);
+
         if(!$json->pages) {
             return;
         }
@@ -81,22 +102,12 @@
     }
     
 //  Handle grabbing of files
-    if(isset($_GET['grab'])) {
-        $api = get_option('gs_api');
-        $site = get_option('gs_acct');
-        
-        $mode = $_GET['grab'];
-        $url = false;
-        
-        if($mode == 'top_content') $url = 'https://api.gosquared.com/pages.json?api_key=' . $api . '&site_token=' . $site . '&callback=' . $_GET['callback'];
-        if($mode == 'live_visitors') $url = 'https://api.gosquared.com/overview.json?api_key=' . $api . '&site_token=' . $site . '&callback=' . $_GET['callback'];
-        
-        header('content-type: text/javascript');
-        include_once 'assets/grab.php';
-        exit;
+    if(isset($_GET['top_content'])) {
+        top_content(true); exit;
     }
     
-    if(isset($_GET['top_content'])) {
-        top_content(true);
+//  and live visitors
+    if(isset($_GET['live_visitors'])) {
+        echo request('https://api.gosquared.com/overview.json?api_key=' . get_option('gs_api') . '&site_token=' . get_option('gs_acct') . (isset($_GET['callback']) ? '&callback=' . $_GET['callback'] : ''), false);
         exit;
     }

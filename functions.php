@@ -2,7 +2,7 @@
 
     function request($url, $decode = true) {
         $now = time();
-        $file = preg_replace('/(\?|&)callback=.*(\?|&|\$)/', '', $url);
+        $file = preg_replace('/(\?|&)callback=.*(\?|&|$)/', '', $url);
         $file = preg_replace('/[^A-Za-z0-9]/', '', $file);
         $file = str_replace('httpsapigosquaredcom', '', $file);
         

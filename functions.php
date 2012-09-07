@@ -7,15 +7,14 @@
         $file = str_replace('httpsapigosquaredcom', '', $file);
         
         $modified = get_option('c_' . $file . '_m');
-        $expiry = $modified + 3; // 3 sec
+        $expiry = $modified + 6; // 6 sec
         
         //  grab a new copy
         if($now > $expiry) {
             echo 'fresh';
-            $content = file_get_contents($url);
-            
-            update_option('c_' . $file, $content);
             update_option('c_' . $file . '_m', strval($now));
+            $content = file_get_contents($url);
+            update_option('c_' . $file, $content);
         } else {
             $content = get_option('c_' . $file);
         }

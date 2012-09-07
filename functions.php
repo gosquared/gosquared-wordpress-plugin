@@ -1,22 +1,32 @@
 <?php
+    
+    function get_url($url) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        
+        return $data;
+    }
 
     function request($url, $decode = true) {
         $now = time();
         $file = preg_replace('/(\?|&)callback=.*(\?|&|$)/', '', $url);
         $file = preg_replace('/[^A-Za-z0-9]/', '', $file);
-        $file = str_replace('httpsapigosquaredcom', '', $file);
+        $file = dirname(__FILE__) . '/cache/' . str_replace('httpsapigosquaredcom', '', $file) . '.cache';
         
-        $modified = get_option('c_' . $file . '_m');
-        $expiry = $modified + 6; // 6 sec
+        $modified = filemtime($file);
+        $expiry = $modified + 6; // 3 sec
         
         //  grab a new copy
         if($now > $expiry) {
-            echo 'fresh';
-            update_option('c_' . $file . '_m', strval($now));
-            $content = file_get_contents($url);
-            update_option('c_' . $file, $content);
+            $content = get_url($url);
+            
+            @file_put_contents($file, $content);
         } else {
-            $content = get_option('c_' . $file);
+            $content = file_get_contents($file);
         }
         
         return $decode ? json_decode($content) : $content;
@@ -35,7 +45,7 @@
     function top_content($noScript = false) {
         $url = 'https://api.gosquared.com/pages.json?api_key=' . get_option('gs_api') . '&site_token=' . get_option('gs_acct');
         $json = request($url);
-        
+
         if(!$json->pages) {
             return;
         }

@@ -18,22 +18,18 @@
     hasjQuery = false;
     
     //  Only works with jQuery, unfortunately
-    if(window.jQuery) {
-        hasjQuery = true;
-        ready(window.jQuery);
-    } else {
-        var w = function() {
-            if(hasjQuery) {
-                clearTimeout(interval);
-                return;
-            } else {
-                if(window.jQuery) {
-                    hasjQuery = true;
-                    ready(window.jQuery);
-                }
+    var w = function() {
+        if(hasjQuery) {
+            clearTimeout(interval);
+            return;
+        } else {
+            if(window.jQuery) {
+                hasjQuery = true;
+                ready(window.jQuery);
             }
         }
-        
-        var interval = setInterval(w, 200);
-    }
+    };
+    
+    w();
+    var interval = setInterval(w, 200);
 })();

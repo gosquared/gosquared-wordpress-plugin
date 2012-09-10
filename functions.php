@@ -1,10 +1,12 @@
 <?php
+
+    global $wpdb;
     
     function get_url($url) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
         $data = curl_exec($ch);
         curl_close($ch);
         
@@ -39,6 +41,12 @@
         
         //  And add the element that spits it out
         echo '<span id="live-visitors"><b>1</b> people online</span>';
+    }
+    
+//  Kill the MySQL connection and bail out
+    function bail() {
+        @mysql_close($wpdb->dbh);
+        exit;
     }
     
 //  Get the most popular pages
@@ -114,11 +122,11 @@
     
 //  Handle grabbing of files
     if(isset($_GET['top_content'])) {
-        top_content(true); exit;
+        top_content(true) && bail();
     }
     
 //  and live visitors
     if(isset($_GET['live_visitors'])) {
         echo request('https://api.gosquared.com/overview.json?api_key=' . get_option('gs_api') . '&site_token=' . get_option('gs_acct') . (isset($_GET['callback']) ? '&callback=' . $_GET['callback'] : ''), false);
-        exit;
+        bail();
     }

@@ -1,3 +1,12 @@
+
+------****************------
+This plugin has been deprecated for over 2 years and has been removed from the Wordpress.org plugin directory.
+
+For GoSquared/Wordpress development I’d highly recommend the great plugin by Patrick Garman here: 
+
+https://github.com/GarmanIO/gosquared
+------****************------
+
 === Plugin Name ===
 Contributors: GoSquared
 Donate link: http://www.gosquared.com/
